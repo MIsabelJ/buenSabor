@@ -11,15 +11,10 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class SucursalDto extends BaseDto {
+public class SucursalShortDto extends BaseDto {
 
-    private String nombre;
     private LocalTime horarioApertura;
     private LocalTime horarioCierre;
     private boolean esCasaMatriz;
-    private DomicilioDto domicilio;
-
-    private EmpresaDto empresa;
-
 
 }

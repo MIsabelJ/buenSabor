@@ -26,8 +26,8 @@ public class Sucursal extends  Base{
     private String nombre;
     private LocalTime horarioApertura;
     private LocalTime horarioCierre;
-
-    @OneToOne(cascade = CascadeType.ALL)
+    private boolean esCasaMatriz;
+    @OneToOne
     private Domicilio domicilio;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -49,6 +49,9 @@ public class Sucursal extends  Base{
     //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA
     @Builder.Default
     private Set<Categoria> categorias = new HashSet<>();
+
+
+
 
     @OneToMany(mappedBy = "sucursal",cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
     @Builder.Default
