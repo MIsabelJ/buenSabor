@@ -2,6 +2,7 @@ package com.entidades.buenSabor.domain.dto.Empresa;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.Sucursal.SucursalDto;
+import com.entidades.buenSabor.domain.dto.Sucursal.SucursalShortDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,5 @@ public class EmpresaLargeDto extends BaseDto {
     private String nombre;
     private String razonSocial;
     private Long cuil;
-    private Set<SucursalDto> sucursales;
+    private Set<SucursalShortDto> sucursales;
 }
