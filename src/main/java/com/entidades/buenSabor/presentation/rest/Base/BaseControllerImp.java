@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Controller
-public abstract class BaseControllerImp <E extends Base,D extends BaseDto, ID extends Serializable, F extends BaseFacadeImp<E,D,ID>> implements BaseController<D,ID> {
+public abstract class BaseControllerImp <E extends Base,D extends BaseDto,DC, DE, ID extends Serializable, F extends BaseFacadeImp<E,D,DC,DE,ID>> implements BaseController<D,DC,DE,ID> {
 
     private static final Logger logger = LoggerFactory.getLogger(BaseControllerImp.class);
     protected F facade;
@@ -34,13 +34,13 @@ public abstract class BaseControllerImp <E extends Base,D extends BaseDto, ID ex
     }
 
     @PostMapping()
-    public ResponseEntity<D> create(@RequestBody D entity){
+    public ResponseEntity<D> create(@RequestBody DC entity){
         logger.info("INICIO CREATE {}",entity.getClass());
         return ResponseEntity.ok(facade.createNew(entity));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<D> edit(@RequestBody D entity, @PathVariable ID id){
+    public ResponseEntity<D> edit(@RequestBody DE entity, @PathVariable ID id){
         logger.info("INICIO EDIT {}",entity.getClass());
         return ResponseEntity.ok(facade.update(entity, id));
     }

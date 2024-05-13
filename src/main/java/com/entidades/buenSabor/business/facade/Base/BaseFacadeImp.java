@@ -10,19 +10,19 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class BaseFacadeImp <E extends Base,D extends BaseDto,ID extends Serializable> implements BaseFacade<D,ID> {
+public abstract class BaseFacadeImp <E extends Base,D extends BaseDto, DC, DE,ID extends Serializable> implements BaseFacade<D,DC,DE,ID> {
 
     protected BaseService<E,ID> baseService;
-    protected BaseMapper<E,D> baseMapper;
+    protected BaseMapper<E,D,DC,DE> baseMapper;
 
-    public BaseFacadeImp(BaseService<E,ID> baseService, BaseMapper<E,D> baseMapper) {
+    public BaseFacadeImp(BaseService<E,ID> baseService, BaseMapper<E,D,DC,DE> baseMapper) {
         this.baseService = baseService;
         this.baseMapper = baseMapper;
     }
 
-    public D createNew(D request){
+    public D createNew(DC request){
         // Convierte a entidad
-        var entityToCreate = baseMapper.toEntity(request);
+        var entityToCreate = baseMapper.toEntityCreate(request);
         // Graba una entidad
         var entityCreated = baseService.create(entityToCreate);
         // convierte a Dto para devolver
@@ -51,10 +51,11 @@ public abstract class BaseFacadeImp <E extends Base,D extends BaseDto,ID extends
         baseService.deleteById(id);
     }
 
-    public D update(D request, ID id){
-        var entityToUpdate = baseMapper.toEntity(request);
-        var entityUpdated = baseService.update(entityToUpdate, id);
-        return baseMapper.toDTO(entityUpdated);
+    public D update(DE request, ID id){
+        var entityToUpdate = baseService.getById(id);
+        var entityUpdateByMapper = baseMapper.toUpdate(entityToUpdate, request);
+        var entityUpdatedByService = baseService.update(entityUpdateByMapper, id);
+        return baseMapper.toDTO(entityUpdatedByService);
     }
 
 }
