@@ -29,4 +29,9 @@ public class EmpresaFacadeImpl extends BaseFacadeImp<Empresa, EmpresaDto,Long> i
     public EmpresaLargeDto addSucursal(Long idEmpresa, Long idSucursal) {
         return empresaMapper.toLargeDto(empresaService.addSucursal(idEmpresa, idSucursal));
     }
+
+    @Override
+    public EmpresaLargeDto getEmpresaLarge(Long idEmpresa) {
+        return empresaMapper.toLargeDto(empresaService.getById(idEmpresa));
+    }
 }

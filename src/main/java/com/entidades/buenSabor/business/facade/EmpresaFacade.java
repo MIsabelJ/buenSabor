@@ -8,4 +8,6 @@ import com.entidades.buenSabor.domain.dto.EmpresaLargeDto;
 
 public interface EmpresaFacade extends BaseFacade<EmpresaDto, Long> {
     EmpresaLargeDto addSucursal(Long idEmpresa, Long idSucursal);
+
+    EmpresaLargeDto getEmpresaLarge(Long idEmpresa);
 }
