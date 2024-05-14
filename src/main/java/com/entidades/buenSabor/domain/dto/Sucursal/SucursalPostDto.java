@@ -22,5 +22,5 @@ public class SucursalPostDto {
     private LocalTime horarioCierre;
     private Boolean esCasaMatriz;
     private DomicilioPostDto domicilio;
-    private EmpresaDto Empresa;
+    private Long idEmpresa;
 }

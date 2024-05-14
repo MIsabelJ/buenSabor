@@ -12,5 +12,5 @@ import lombok.Setter;
 @Setter
 public class ProvinciaPostDto {
     private String nombre;
-    private PaisDto pais;
+    private Long idPais;
 }
