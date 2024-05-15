@@ -1,5 +1,6 @@
 package com.entidades.buenSabor.domain.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.*;
@@ -24,10 +25,13 @@ import java.util.Set;
 public class Sucursal extends  Base{
 
     private String nombre;
+    @Schema(type = "string", format = "time", pattern = "HH:mm:ss", description = "Horario de apertura en formato HH:mm:ss")
     private LocalTime horarioApertura;
+    @Schema(type = "string", format = "time", pattern = "HH:mm:ss", description = "Horario de apertura en formato HH:mm:ss")
     private LocalTime horarioCierre;
     private boolean esCasaMatriz;
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Domicilio domicilio;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

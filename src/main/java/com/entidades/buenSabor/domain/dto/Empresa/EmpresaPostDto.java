@@ -1,4 +1,4 @@
-package com.entidades.buenSabor.domain.dto;
+package com.entidades.buenSabor.domain.dto.Empresa;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class PaisDto extends BaseDto{
-    private Long id;
+public class EmpresaPostDto {
     private String nombre;
+    private String razonSocial;
+    private Long cuil;
 }
