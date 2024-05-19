@@ -1,7 +1,6 @@
 package com.entidades.buenSabor.domain.dto.Sucursal;
 
 import com.entidades.buenSabor.domain.dto.Domicilio.DomicilioPostDto;
-import com.entidades.buenSabor.domain.dto.Empresa.EmpresaDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
