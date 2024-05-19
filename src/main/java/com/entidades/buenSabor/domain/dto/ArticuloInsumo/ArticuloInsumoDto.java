@@ -1,6 +1,7 @@
 package com.entidades.buenSabor.domain.dto.ArticuloInsumo;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
+import com.entidades.buenSabor.domain.dto.Categoria.CategoriaDto;
 import com.entidades.buenSabor.domain.dto.ImagenArticulo.ImagenArticuloDto;
 import com.entidades.buenSabor.domain.dto.UnidadMedida.UnidadMedidaDto;
 import com.entidades.buenSabor.domain.entities.ImagenArticulo;
@@ -25,4 +26,5 @@ public class ArticuloInsumoDto extends BaseDto {
     private Integer stockMaximo;
     private Boolean esParaElaborar;
     protected UnidadMedidaDto unidadMedida;
+    private CategoriaDto categoria;
 }

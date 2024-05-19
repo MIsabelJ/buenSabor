@@ -18,8 +18,6 @@ import java.util.Set;
 public class CategoriaDto extends BaseDto {
     private String denominacion;
     private Set<SucursalDto> sucursales;
-    private Set<ArticuloInsumoDto> insumos;
-    private Set<ArticuloManufacturadoDto> articulosManufacturados;
     private Set<CategoriaDto> subCategorias;
 
 }

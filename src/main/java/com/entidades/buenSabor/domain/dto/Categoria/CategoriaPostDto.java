@@ -15,8 +15,6 @@ import java.util.Set;
 @Getter
 public class CategoriaPostDto {
     private String denominacion;
-    private Set<SucursalDto> sucursales;
-    private Set<ArticuloInsumoDto> insumos;
-    private Set<ArticuloManufacturadoDto> articulosManufacturados;
-    private Set<CategoriaDto> subCategorias;
+    private Set<Long> idSucursales;
+    private Set<Long> idSubCategorias;
 }

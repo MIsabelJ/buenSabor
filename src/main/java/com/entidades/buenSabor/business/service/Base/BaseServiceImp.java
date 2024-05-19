@@ -6,7 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public abstract class BaseServiceImp<E extends Base,ID extends Serializable> implements BaseService<E, ID> {
@@ -28,6 +30,18 @@ public abstract class BaseServiceImp<E extends Base,ID extends Serializable> imp
         var entity = baseRepository.getById(id);
         logger.info("Obtenida entidad {}",entity);
         return entity;
+    }
+
+    @Override
+    public Set<E> getSetById(Set<ID> ids) {
+        Set<E> entities = new HashSet<>();
+        for (ID id : ids) {
+            E entity = baseRepository.getById(id);
+            if (entity != null) {
+                entities.add(entity);
+            }
+        }
+        return entities;
     }
 
     @Override

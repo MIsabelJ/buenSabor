@@ -9,9 +9,10 @@ import com.entidades.buenSabor.domain.entities.Sucursal;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {DomicilioMapper.class, EmpresaService.class })
+@Mapper(componentModel = "spring", uses = {DomicilioService.class, EmpresaService.class })
 public interface SucursalMapper extends BaseMapper<Sucursal, SucursalDto, SucursalPostDto, SucursalUpdateDto>{
 
     @Mapping(target = "empresa", source = "idEmpresa", qualifiedByName = "getById")
+    @Mapping(target= "domicilio", source = "idDomicilio", qualifiedByName = "getById")
     public Sucursal toEntityCreate(SucursalPostDto source);
 }

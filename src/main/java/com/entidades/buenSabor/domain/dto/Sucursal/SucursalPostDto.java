@@ -20,6 +20,6 @@ public class SucursalPostDto {
     @Schema(type = "string", format = "time", pattern = "HH:mm:ss", description = "Horario de apertura en formato HH:mm:ss")
     private LocalTime horarioCierre;
     private Boolean esCasaMatriz;
-    private DomicilioPostDto domicilio;
+    private Long idDomicilio;
     private Long idEmpresa;
 }

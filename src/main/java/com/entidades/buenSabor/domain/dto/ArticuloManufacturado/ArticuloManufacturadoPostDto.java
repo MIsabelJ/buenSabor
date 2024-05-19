@@ -21,7 +21,8 @@ public class ArticuloManufacturadoPostDto {
     private String descripcion;
     private Integer tiempoEstimadoMinutos;
     private String preparacion;
-    private Set<ArticuloManufacturadoDetalleDto> articuloManufacturadoDetalles;
-    protected Set<ImagenArticuloDto> imagenes;
-    protected UnidadMedidaDto unidadMedida;
+    private Set<Long> idArticuloManufacturadoDetalles;
+    protected Set<Long> idImagenes;
+    protected Long idUnidadMedida;
+    private Long idCategoria;
 }

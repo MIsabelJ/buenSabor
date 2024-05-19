@@ -1,6 +1,7 @@
 package com.entidades.buenSabor.domain.dto.ArticuloInsumo;
 
 import com.entidades.buenSabor.domain.dto.ImagenArticulo.ImagenArticuloDto;
+import com.entidades.buenSabor.domain.dto.ImagenArticulo.ImagenArticuloPostDto;
 import com.entidades.buenSabor.domain.dto.UnidadMedida.UnidadMedidaDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,10 +17,11 @@ import java.util.Set;
 public class ArticuloInsumoPostDto {
     protected String denominacion;
     protected Double precioVenta;
-    protected Set<ImagenArticuloDto> imagenes;
+    protected Set<Long> idImagenes; //En este caso partidular deberiamos recibir un List<Long> de ids y crear un metodo personalizado
     private Double precioCompra;
     private Integer stockActual;
     private Integer stockMaximo;
     private Boolean esParaElaborar;
-    protected UnidadMedidaDto unidadMedida;
+    protected Long idUnidadMedida;
+    private Long idCategoria;
 }

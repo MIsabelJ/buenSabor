@@ -2,6 +2,7 @@ package com.entidades.buenSabor.domain.dto.ArticuloManufacturado;
 
 import com.entidades.buenSabor.domain.dto.ArticuloManufacturdadoDetalle.ArticuloManufacturadoDetalleDto;
 import com.entidades.buenSabor.domain.dto.BaseDto;
+import com.entidades.buenSabor.domain.dto.Categoria.CategoriaDto;
 import com.entidades.buenSabor.domain.dto.ImagenArticulo.ImagenArticuloDto;
 import com.entidades.buenSabor.domain.dto.UnidadMedida.UnidadMedidaDto;
 import com.entidades.buenSabor.domain.entities.ArticuloManufacturadoDetalle;
@@ -27,4 +28,5 @@ public class ArticuloManufacturadoDto extends BaseDto {
     private Set<ArticuloManufacturadoDetalleDto> articuloManufacturadoDetalles;
     protected Set<ImagenArticuloDto> imagenes;
     protected UnidadMedidaDto unidadMedida;
+    private CategoriaDto categoria;
 }
