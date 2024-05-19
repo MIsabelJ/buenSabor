@@ -25,7 +25,7 @@ public class ArticuloManufacturado  extends Articulo{
 
 
     @OneToMany
-    @JoinColumn(name = "articuloManufacturado_id")
+    @JoinColumn(name = "articulo_manufacturado_id")
     @Builder.Default
     private Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles = new HashSet<>();
 
