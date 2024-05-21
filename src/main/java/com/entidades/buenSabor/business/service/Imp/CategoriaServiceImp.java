@@ -6,12 +6,29 @@ import com.entidades.buenSabor.business.service.SucursalService;
 import com.entidades.buenSabor.domain.entities.Categoria;
 import com.entidades.buenSabor.domain.entities.Sucursal;
 import com.entidades.buenSabor.repositories.ArticuloRepository;
+import com.entidades.buenSabor.repositories.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
 public class CategoriaServiceImp extends BaseServiceImp<Categoria, Long> implements CategoriaService {
 
+    @Autowired
+    SucursalService sucursalService;
+
+    @Override
+    public Categoria create(Categoria request) {
+        Set<Sucursal> sucursales = request.getSucursales();
+        var entitySaved = baseRepository.save(request);
+        sucursales.stream()
+                .map(sucursal -> {
+                    sucursal.getCategorias().add(request);
+                    return sucursal;
+                })
+                .forEach(sucursalService::create); // Suponiendo que sucursalService tiene un método save para guardar sucursales
+        return entitySaved;
+    }
 }

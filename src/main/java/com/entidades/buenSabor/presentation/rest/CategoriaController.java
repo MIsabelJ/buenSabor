@@ -16,4 +16,5 @@ public class CategoriaController extends BaseControllerImp<Categoria, CategoriaD
     public CategoriaController(CategoriaFacadeImp facade) {
         super(facade);
     }
+
 }
