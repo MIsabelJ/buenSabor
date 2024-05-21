@@ -15,6 +15,6 @@ public interface ArticuloInsumoMapper extends BaseMapper<ArticuloInsumo, Articul
     ArticuloInsumoMapper INSTANCE = Mappers.getMapper(ArticuloInsumoMapper.class);
     @Mapping(target = "unidadMedida", source = "idUnidadMedida", qualifiedByName = "getById")
     @Mapping(target = "categoria", source = "idCategoria", qualifiedByName = "getById")
-    @Mapping(target = "imagenes", source = "idImagenes", qualifiedByName = "getSetById")
+    @Mapping(target = "imagenes", source = "idImagenes", qualifiedByName = "getById")
     public ArticuloInsumo toEntityCreate(ArticuloInsumoPostDto source);
 }

@@ -18,11 +18,14 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria, Long> impleme
 
     @Autowired
     SucursalService sucursalService;
+/*    @Autowired
+    CategoriaService categoriaService;*/
 
     @Override
     public Categoria create(Categoria request) {
         Set<Sucursal> sucursales = request.getSucursales();
         var entitySaved = baseRepository.save(request);
+
         sucursales.stream()
                 .map(sucursal -> {
                     sucursal.getCategorias().add(request);
@@ -31,4 +34,12 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria, Long> impleme
                 .forEach(sucursalService::create); // Suponiendo que sucursalService tiene un método save para guardar sucursales
         return entitySaved;
     }
+
+/*    @Override
+    public Categoria addSubCategoria(Long idCategoria, Categoria subCategoriaToCreate) {
+        var categoria = baseRepository.getById(idCategoria);
+        create(subCategoriaToCreate);
+        categoria.getSubCategorias().add(subCategoriaToCreate);
+        return baseRepository.save(categoria);
+    }*/
 }

@@ -29,8 +29,8 @@ public interface CategoriaMapper extends BaseMapper<Categoria, CategoriaDto, Cat
 public interface CategoriaMapper extends BaseMapper<Categoria, CategoriaDto,CategoriaPostDto, CategoriaPostDto> {
 
     // Este método define la transformación de un CategoriaCreateDto a una entidad Categoria.
-    @Mapping(target = "sucursales", source = "idSucursales",qualifiedByName = "getSetById")
-    @Mapping(target = "subCategorias", source = "idSubCategorias",qualifiedByName = "getSetById")
+    @Mapping(target = "sucursales", source = "idSucursales",qualifiedByName = "getById")
+    @Mapping(target = "subCategorias", source = "idSubCategorias",qualifiedByName = "getById")
     Categoria toEntityCreate(CategoriaPostDto source);
 
 

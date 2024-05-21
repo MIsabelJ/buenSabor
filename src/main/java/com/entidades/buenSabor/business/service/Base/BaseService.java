@@ -17,5 +17,5 @@ public interface BaseService <E extends Base, ID extends Serializable>{
     @Named("getById")
     public E getById(ID ids);
     @Named("getSetById")
-    public Set<E> getSetById(Set<ID> id);
+    public Set<E> getSetById(Set<ID> ids);
 }

@@ -5,9 +5,9 @@ import com.entidades.buenSabor.domain.dto.Categoria.CategoriaDto;
 import com.entidades.buenSabor.domain.dto.Categoria.CategoriaPostDto;
 import com.entidades.buenSabor.domain.entities.Categoria;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/categoria")
@@ -16,5 +16,10 @@ public class CategoriaController extends BaseControllerImp<Categoria, CategoriaD
     public CategoriaController(CategoriaFacadeImp facade) {
         super(facade);
     }
+
+/*    @PutMapping("/addSubCategoria/{idCategoria}")
+    public ResponseEntity<CategoriaDto> addSubCategoria(@PathVariable Long idCategoria, @RequestBody CategoriaPostDto subCategoria){
+        return ResponseEntity.status(HttpStatus.CREATED).body(facade.addSubCategoria(idCategoria,subCategoria));
+    }*/
 
 }
