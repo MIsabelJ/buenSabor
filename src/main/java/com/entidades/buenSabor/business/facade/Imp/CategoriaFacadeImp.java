@@ -19,10 +19,10 @@ public class CategoriaFacadeImp extends BaseFacadeImp<Categoria, CategoriaDto, C
 
     @Autowired
     private CategoriaService categoriaService;
-/*    @Override
+    @Override
     public CategoriaDto addSubCategoria(Long idCategoria, CategoriaPostDto subCategoria) {
         Categoria subCategoriaToCreate = baseMapper.toEntityCreate(subCategoria);
         return baseMapper.toDTO(categoriaService.addSubCategoria(idCategoria, subCategoriaToCreate));
-    }*/
+    }
 
 }

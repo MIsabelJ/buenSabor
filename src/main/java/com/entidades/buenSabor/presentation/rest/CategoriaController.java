@@ -17,9 +17,9 @@ public class CategoriaController extends BaseControllerImp<Categoria, CategoriaD
         super(facade);
     }
 
-/*    @PutMapping("/addSubCategoria/{idCategoria}")
+   @PutMapping("/addSubCategoria/{idCategoria}")
     public ResponseEntity<CategoriaDto> addSubCategoria(@PathVariable Long idCategoria, @RequestBody CategoriaPostDto subCategoria){
         return ResponseEntity.status(HttpStatus.CREATED).body(facade.addSubCategoria(idCategoria,subCategoria));
-    }*/
+    }
 
 }

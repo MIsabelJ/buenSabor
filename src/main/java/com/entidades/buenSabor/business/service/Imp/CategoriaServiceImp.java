@@ -35,11 +35,11 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria, Long> impleme
         return entitySaved;
     }
 
-/*    @Override
+    @Override
     public Categoria addSubCategoria(Long idCategoria, Categoria subCategoriaToCreate) {
         var categoria = baseRepository.getById(idCategoria);
         create(subCategoriaToCreate);
         categoria.getSubCategorias().add(subCategoriaToCreate);
         return baseRepository.save(categoria);
-    }*/
+    }
 }
