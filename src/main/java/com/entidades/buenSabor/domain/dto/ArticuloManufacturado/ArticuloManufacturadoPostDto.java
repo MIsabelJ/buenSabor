@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
+import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -22,7 +24,7 @@ public class ArticuloManufacturadoPostDto {
     private Integer tiempoEstimadoMinutos;
     private String preparacion;
     private Set<Long> idArticuloManufacturadoDetalles;
-    protected Set<Long> idImagenes;
+    protected Set<UUID> idImagenes;
     protected Long idUnidadMedida;
     private Long idCategoria;
 }

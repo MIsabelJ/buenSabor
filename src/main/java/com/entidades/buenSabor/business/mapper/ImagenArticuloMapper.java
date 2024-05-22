@@ -6,5 +6,5 @@ import com.entidades.buenSabor.domain.entities.ImagenArticulo;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface ImagenArticuloMapper extends BaseMapper<ImagenArticulo, ImagenArticuloDto, ImagenArticuloPostDto, ImagenArticuloPostDto>{
+public interface ImagenArticuloMapper {
 }

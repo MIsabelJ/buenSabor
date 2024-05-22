@@ -4,5 +4,5 @@ import com.entidades.buenSabor.business.facade.Base.BaseFacade;
 import com.entidades.buenSabor.domain.dto.ImagenArticulo.ImagenArticuloDto;
 import com.entidades.buenSabor.domain.dto.ImagenArticulo.ImagenArticuloPostDto;
 
-public interface ImagenArticuloFacade extends BaseFacade<ImagenArticuloDto, ImagenArticuloPostDto, ImagenArticuloPostDto, Long> {
+public interface ImagenArticuloFacade  {
 }

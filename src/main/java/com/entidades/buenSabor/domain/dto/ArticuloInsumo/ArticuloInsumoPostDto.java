@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +18,7 @@ import java.util.Set;
 public class ArticuloInsumoPostDto {
     protected String denominacion;
     protected Double precioVenta;
-    protected Set<Long> idImagenes; //En este caso partidular deberiamos recibir un List<Long> de ids y crear un metodo personalizado
+    protected Set<UUID> idImagenes; //En este caso partidular deberiamos recibir un List<Long> de ids y crear un metodo personalizado
     private Double precioCompra;
     private Integer stockActual;
     private Integer stockMaximo;
