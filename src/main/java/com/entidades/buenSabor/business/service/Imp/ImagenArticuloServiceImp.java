@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
@@ -48,16 +50,16 @@ public class ImagenArticuloServiceImp implements ImagenArticuloService {
     }
 
     // Método para subir imágenes a Cloudinary y guardar los detalles en la base de datos
-    @Override
-    public ResponseEntity<String> uploadImages(MultipartFile[] files) {
-        List<String> urls = new ArrayList<>();
+    @PostMapping("/uploadImages")
+    public ResponseEntity<?> uploadImages(@RequestParam("files") MultipartFile[] files) {
+        List<ImagenArticulo> savedImages = new ArrayList<>();
 
         try {
             // Iterar sobre cada archivo recibido
             for (MultipartFile file : files) {
                 // Verificar si el archivo está vacío
                 if (file.isEmpty()) {
-                    return ResponseEntity.badRequest().build();
+                    return ResponseEntity.badRequest().body("{\"status\":\"ERROR\", \"message\":\"Empty file\"}");
                 }
 
                 // Crear una entidad Image y establecer su nombre y URL (subida a Cloudinary)
@@ -67,23 +69,23 @@ public class ImagenArticuloServiceImp implements ImagenArticuloService {
 
                 // Verificar si la URL de la imagen es nula (indicativo de fallo en la subida)
                 if (image.getUrl() == null) {
-                    return ResponseEntity.badRequest().build();
+                    return ResponseEntity.badRequest().body("{\"status\":\"ERROR\", \"message\":\"Failed to upload file\"}");
                 }
 
                 // Guardar la entidad Image en la base de datos
-                imageRepository.save(image);
+                ImagenArticulo savedImage = imageRepository.save(image);
 
-                // Agregar la URL de la imagen a la lista de URLs subidas
-                urls.add(image.getUrl());
+                // Agregar la imagen guardada a la lista de imágenes subidas
+                savedImages.add(savedImage);
             }
 
-            // Convertir la lista de URLs a un objeto JSON y devolver como ResponseEntity con estado OK (200)
-            return new ResponseEntity<>("{\"status\":\"OK\", \"urls\":" + urls + "}", HttpStatus.OK);
+            // Devolver la lista de imágenes guardadas como JSON con estado OK (200)
+            return ResponseEntity.ok(savedImages);
 
         } catch (Exception e) {
             e.printStackTrace();
             // Devolver un error (400) si ocurre alguna excepción durante el proceso de subida
-            return new ResponseEntity<>("{\"status\":\"ERROR\", \"message\":\"" + e.getMessage() + "\"}", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body("{\"status\":\"ERROR\", \"message\":\"" + e.getMessage() + "\"}");
         }
     }
 

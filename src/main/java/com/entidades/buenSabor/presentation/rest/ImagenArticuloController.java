@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -24,7 +25,7 @@ public class ImagenArticuloController  {
 
     // Método POST para subir imágenes
     @PostMapping("/uploads")
-    public ResponseEntity<String> uploadImages(
+    public ResponseEntity<?> uploadImages(
             @RequestParam(value = "uploads", required = true) MultipartFile[] files) {
         try {
             return imageService.uploadImages(files); // Llama al método del servicio para subir imágenes
@@ -59,6 +60,21 @@ public class ImagenArticuloController  {
         } catch (Exception e) {
             e.printStackTrace();
             return null; // Manejo básico de errores, se puede mejorar para devolver una respuesta más específica
+        }
+    }
+
+    @GetMapping("/getAllImagesById")
+    public ResponseEntity<?> getAllById(@RequestParam("uuid") Set<String> uuids){
+        try{
+            Set<ImagenArticulo> images = imageService.findByIds(uuids);
+            if (images.isEmpty()){
+                return  ResponseEntity.status(404).body("{\"status\":\"ERROR\", \"message\":\"No images found for the provided IDs\"}");
+            }
+            return ResponseEntity.ok(images);
+        }catch (Exception e){
+            e.printStackTrace();
+            // Devolver un error (400) si ocurre alguna excepción durante el proceso
+            return ResponseEntity.status(400).body("{\"status\":\"ERROR\", \"message\":\"" + e.getMessage() + "\"}");
         }
     }
 
