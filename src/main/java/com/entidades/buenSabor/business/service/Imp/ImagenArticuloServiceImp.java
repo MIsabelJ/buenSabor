@@ -105,8 +105,9 @@ public class ImagenArticuloServiceImp implements ImagenArticuloService {
     }
 
     @Override
-    public Set<ImagenArticulo> findByIds(Set<UUID> ids) {
-        return ids.stream()
+    public Set<ImagenArticulo> findByIds(Set<String> ids) {
+        Set<UUID> idsUUID = ids.stream().map(UUID::fromString).collect(Collectors.toSet());
+        return idsUUID.stream()
                 .map(id -> imageRepository.findById(id).orElse(null))
                 .collect(Collectors.toSet());
     }

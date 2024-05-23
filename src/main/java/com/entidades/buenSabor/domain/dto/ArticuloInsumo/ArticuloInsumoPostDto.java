@@ -18,7 +18,7 @@ import java.util.UUID;
 public class ArticuloInsumoPostDto {
     protected String denominacion;
     protected Double precioVenta;
-    protected Set<UUID> idImagenes; //En este caso partidular deberiamos recibir un List<Long> de ids y crear un metodo personalizado
+    protected Set<String> idImagenes; //En este caso partidular deberiamos recibir un List<Long> de ids y crear un metodo personalizado
     private Double precioCompra;
     private Integer stockActual;
     private Integer stockMaximo;

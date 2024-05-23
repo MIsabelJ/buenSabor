@@ -21,6 +21,6 @@ public interface ImagenArticuloService  {
     // Método para eliminar una imagen por su identificador público y UUID
     ResponseEntity<String> deleteImage(String publicId, UUID uuid);
 
-    @Named("findByUUID")
-    public Set<ImagenArticulo> findByIds(Set<UUID> ids);
+    @Named("findByIds")
+    public Set<ImagenArticulo> findByIds(Set<String> ids);
 }
