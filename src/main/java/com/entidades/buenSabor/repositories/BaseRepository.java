@@ -18,8 +18,12 @@ public interface BaseRepository <E extends Base, ID extends Serializable> extend
     @Override
     @Transactional
     default void delete(E entity) {
-        logger.info("EJECUTANDO DELETE SOBREESCRITO");
-        entity.setEliminado(true);
+        logger.info("EJECUTANDO DELETE O UPDATE SOBREESCRITO");
+        if (entity.isEliminado()){
+            entity.setEliminado(false);
+        }else{
+            entity.setEliminado(true);
+        }
         save(entity);
     }
 
@@ -35,17 +39,18 @@ public interface BaseRepository <E extends Base, ID extends Serializable> extend
         }
 
         var entity = optionalEntity.get();
-        if(entity.isEliminado()){
+       /* if(entity.isEliminado()){
             String errMsg = "La entidad del tipo " + entity.getClass().getSimpleName() + " con el id " + id + " se encuentra borrada logicamente";
             logger.error(errMsg);
             throw new RuntimeException(errMsg);
-        }
+        }*/
         return entity;
     }
 
     default List<E> getAll(){
         logger.info("EJECUTANDO GET ALL PERSONALIZADO");
-        var entities = findAll().stream().filter(e -> !e.isEliminado()).toList();
+        //var entities = findAll().stream().filter(e -> !e.isEliminado()).toList();
+        var entities = findAll();
         return entities;
     }
 }
