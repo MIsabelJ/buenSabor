@@ -17,7 +17,6 @@ import java.util.Set;
 public class ArticuloDto extends BaseDto {
     private String denominacion;
     private Double precioVenta;
-
     private Set<ImagenArticuloDto> imagenes;
     private UnidadMedidaDto unidadMedida;
 }

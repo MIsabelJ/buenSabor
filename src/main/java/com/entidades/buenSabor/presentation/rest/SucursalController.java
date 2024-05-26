@@ -4,6 +4,7 @@ package com.entidades.buenSabor.presentation.rest;
 import com.entidades.buenSabor.business.facade.Imp.SucursalFacadeImp;
 
 import com.entidades.buenSabor.business.service.Base.BaseServiceImp;
+import com.entidades.buenSabor.domain.dto.Categoria.CategoriaDto;
 import com.entidades.buenSabor.domain.dto.Sucursal.SucursalDto;
 
 import com.entidades.buenSabor.domain.dto.Sucursal.SucursalPostDto;
@@ -12,8 +13,11 @@ import com.entidades.buenSabor.domain.entities.Sucursal;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sucursal")
@@ -23,5 +27,10 @@ public class SucursalController extends BaseControllerImp<Sucursal, SucursalDto,
     public SucursalController(SucursalFacadeImp facade) {
         super(facade);
     }
+    @GetMapping("/{idSucursal}/categorias")
+    public ResponseEntity<List<CategoriaDto>> getCategoriasBySucursalId(@PathVariable Long idSucursal){
+        return ResponseEntity.ok(facade.findCategoriaBySucursalId(idSucursal));
+    }
+
 
 }
