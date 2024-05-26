@@ -1,6 +1,7 @@
 package com.entidades.buenSabor.domain.dto.Sucursal;
 
 import com.entidades.buenSabor.domain.dto.Domicilio.DomicilioPostDto;
+import com.entidades.buenSabor.domain.entities.Domicilio;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,6 @@ public class SucursalPostDto {
     @Schema(type = "string", format = "time", pattern = "HH:mm:ss", description = "Horario de apertura en formato HH:mm:ss")
     private LocalTime horarioCierre;
     private Boolean esCasaMatriz;
-    private Long idDomicilio;
+    private DomicilioPostDto domicilio;
     private Long idEmpresa;
 }
