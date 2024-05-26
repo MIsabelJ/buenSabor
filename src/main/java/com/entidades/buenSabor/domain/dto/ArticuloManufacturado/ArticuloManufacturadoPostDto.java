@@ -1,6 +1,7 @@
 package com.entidades.buenSabor.domain.dto.ArticuloManufacturado;
 
 import com.entidades.buenSabor.domain.dto.ArticuloManufacturdadoDetalle.ArticuloManufacturadoDetalleDto;
+import com.entidades.buenSabor.domain.dto.ArticuloManufacturdadoDetalle.ArticuloManufacturadoDetallePostDto;
 import com.entidades.buenSabor.domain.dto.ImagenArticulo.ImagenArticuloDto;
 import com.entidades.buenSabor.domain.dto.UnidadMedida.UnidadMedidaDto;
 import com.entidades.buenSabor.domain.entities.ImagenArticulo;
@@ -23,7 +24,7 @@ public class ArticuloManufacturadoPostDto {
     private String descripcion;
     private Integer tiempoEstimadoMinutos;
     private String preparacion;
-    private Set<Long> idArticuloManufacturadoDetalles;
+    private Set<ArticuloManufacturadoDetallePostDto> articuloManufacturadoDetalles;
     protected Set<String> idImagenes;
     protected Long idUnidadMedida;
     private Long idCategoria;

@@ -23,7 +23,7 @@ public class ArticuloManufacturado  extends Articulo{
     private Integer tiempoEstimadoMinutos;
     private String preparacion;
     @ManyToOne
-    @JoinColumn(name = "articuloManufacturado_id")
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
     @OneToMany
     @JoinColumn(name = "articulo_manufacturado_id")

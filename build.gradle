@@ -27,10 +27,10 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	//H2 DATABASE
-//	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.h2database:h2'
 
 	//MYSQL DATABASE
-	// runtimeOnly 'com.mysql:mysql-connector-j'
+	 runtimeOnly 'com.mysql:mysql-connector-j'
 
 	//POSTGRESQL DATABASE
 	 runtimeOnly 'org.postgresql:postgresql'

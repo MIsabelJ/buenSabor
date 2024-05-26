@@ -16,12 +16,11 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = {UnidadMedidaService.class, CategoriaService.class, ArticuloManufacturadoDetalleService.class, ImagenArticuloService.class})
+@Mapper(componentModel = "spring", uses = {UnidadMedidaService.class, CategoriaService.class, ArticuloManufacturadoDetalleMapper.class, ImagenArticuloService.class})
 public interface ArticuloManufacturadoMapper extends BaseMapper<ArticuloManufacturado, ArticuloManufacturadoDto, ArticuloManufacturadoPostDto, ArticuloManufacturadoPostDto>{
 
     @Mapping(target = "unidadMedida", source = "idUnidadMedida", qualifiedByName = "getById")
     @Mapping(target = "categoria", source = "idCategoria", qualifiedByName = "getById")
-    @Mapping(target = "articuloManufacturadoDetalles", source = "idArticuloManufacturadoDetalles", qualifiedByName = "getById")
     @Mapping(target = "imagenes", source = "idImagenes", qualifiedByName = "findByIds")
     public ArticuloManufacturado toEntityCreate(ArticuloManufacturadoPostDto source);
 }
