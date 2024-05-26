@@ -10,8 +10,6 @@ import com.entidades.buenSabor.domain.entities.ImagenPromocion;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ImagenPromocionFacadeImp extends BaseFacadeImp<ImagenPromocion, ImagenPromocionDto, ImagenPromocionPostDto, ImagenPromocionPostDto, Long> implements ImagenPromocionFacade {
-    public ImagenPromocionFacadeImp(BaseService<ImagenPromocion, Long> baseService, BaseMapper<ImagenPromocion, ImagenPromocionDto, ImagenPromocionPostDto, ImagenPromocionPostDto> baseMapper) {
-        super(baseService, baseMapper);
-    }
+public class ImagenPromocionFacadeImp implements ImagenPromocionFacade {
+
 }
