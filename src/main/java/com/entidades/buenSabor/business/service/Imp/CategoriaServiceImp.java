@@ -3,6 +3,8 @@ package com.entidades.buenSabor.business.service.Imp;
 import com.entidades.buenSabor.business.service.Base.BaseServiceImp;
 import com.entidades.buenSabor.business.service.CategoriaService;
 import com.entidades.buenSabor.business.service.SucursalService;
+import com.entidades.buenSabor.domain.entities.ArticuloInsumo;
+import com.entidades.buenSabor.domain.entities.ArticuloManufacturado;
 import com.entidades.buenSabor.domain.entities.Categoria;
 import com.entidades.buenSabor.domain.entities.Sucursal;
 import com.entidades.buenSabor.repositories.ArticuloRepository;
@@ -43,6 +45,16 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria, Long> impleme
         create(subCategoriaToCreate);
         categoria.getSubCategorias().add(subCategoriaToCreate);
         return baseRepository.save(categoria);
+    }
+
+    @Override
+    public List<ArticuloInsumo> getInsumoByCategoriaId(Long idCategoria){
+        return categoriaRepository.findAllByCategoriaId(idCategoria);
+    }
+
+    @Override
+    public List<ArticuloManufacturado> getManufacturadoByCategoriaId(Long idCategoria){
+        return categoriaRepository.findManufacturadosByCategoriaId(idCategoria);
     }
 
 

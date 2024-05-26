@@ -1,6 +1,8 @@
 package com.entidades.buenSabor.presentation.rest;
 
 import com.entidades.buenSabor.business.facade.Imp.CategoriaFacadeImp;
+import com.entidades.buenSabor.domain.dto.ArticuloInsumo.ArticuloInsumoDto;
+import com.entidades.buenSabor.domain.dto.ArticuloManufacturado.ArticuloManufacturadoDto;
 import com.entidades.buenSabor.domain.dto.Categoria.CategoriaDto;
 import com.entidades.buenSabor.domain.dto.Categoria.CategoriaPostDto;
 import com.entidades.buenSabor.domain.entities.Categoria;
@@ -8,6 +10,8 @@ import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/categoria")
@@ -22,4 +26,13 @@ public class CategoriaController extends BaseControllerImp<Categoria, CategoriaD
         return ResponseEntity.status(HttpStatus.CREATED).body(facade.addSubCategoria(idCategoria,subCategoria));
     }
 
+    @GetMapping("/{idCategoria}/insumos")
+    public ResponseEntity<List<ArticuloInsumoDto>> getInsumosByCategoriaId(@PathVariable long idCategoria){
+        return ResponseEntity.ok(facade.getInsumoByCategoriaId(idCategoria));
+    }
+
+    @GetMapping("/{idCategoria}/manufacturados")
+    public ResponseEntity<List<ArticuloManufacturadoDto>> getManufacturadosByCategoriaId(@PathVariable long idCategoria){
+        return ResponseEntity.ok(facade.getManufacturadoByCategoriaId(idCategoria));
+    }
 }
