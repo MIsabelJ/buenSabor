@@ -5,4 +5,5 @@ import com.entidades.buenSabor.domain.dto.ArticuloManufacturado.ArticuloManufact
 import com.entidades.buenSabor.domain.dto.ArticuloManufacturado.ArticuloManufacturadoPostDto;
 
 public interface ArticuloManufacturadoFacade extends BaseFacade<ArticuloManufacturadoDto, ArticuloManufacturadoPostDto, ArticuloManufacturadoPostDto, Long> {
+
 }

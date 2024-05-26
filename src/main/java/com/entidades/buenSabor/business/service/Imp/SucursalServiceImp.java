@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SucursalServiceImp extends BaseServiceImp<Sucursal,Long> implements SucursalService {
@@ -25,5 +26,9 @@ public class SucursalServiceImp extends BaseServiceImp<Sucursal,Long> implements
         sucursal.setDomicilio(domicilioSaved);
         return sucursalRepository.save(sucursal);
 
+    }
+    @Override
+    public List<Categoria> getCategoriasBySucursalId(Long idSucursal){
+        return sucursalRepository.getCategoriasBySucursalId(idSucursal);
     }
 }
