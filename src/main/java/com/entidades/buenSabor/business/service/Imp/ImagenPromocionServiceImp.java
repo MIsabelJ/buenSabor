@@ -53,7 +53,7 @@ public class ImagenPromocionServiceImp implements ImagenPromocionService {
 
     // Método para subir imágenes a Cloudinary y guardar los detalles en la base de datos
     @PostMapping("/uploadImages")
-    public ResponseEntity<?> uploadImages(@RequestParam("files") MultipartFile[] files) {
+    public List<ImagenPromocion> uploadImages(@RequestParam("files") MultipartFile[] files) {
         List<ImagenPromocion> savedImages = new ArrayList<>();
 
         try {
@@ -61,7 +61,7 @@ public class ImagenPromocionServiceImp implements ImagenPromocionService {
             for (MultipartFile file : files) {
                 // Verificar si el archivo está vacío
                 if (file.isEmpty()) {
-                    return ResponseEntity.badRequest().body("{\"status\":\"ERROR\", \"message\":\"Empty file\"}");
+                    return null;
                 }
 
                 // Crear una entidad Image y establecer su nombre y URL (subida a Cloudinary)
@@ -71,23 +71,23 @@ public class ImagenPromocionServiceImp implements ImagenPromocionService {
 
                 // Verificar si la URL de la imagen es nula (indicativo de fallo en la subida)
                 if (image.getUrl() == null) {
-                    return ResponseEntity.badRequest().body("{\"status\":\"ERROR\", \"message\":\"Failed to upload file\"}");
+                    return null;
                 }
 
                 // Guardar la entidad Image en la base de datos
-                ImagenPromocion savedImage = imageRepository.save(image);
+                //ImagenPromocion savedImage = imageRepository.save(image);
 
                 // Agregar la imagen guardada a la lista de imágenes subidas
-                savedImages.add(savedImage);
+                savedImages.add(image);
             }
 
             // Devolver la lista de imágenes guardadas como JSON con estado OK (200)
-            return ResponseEntity.ok(savedImages);
+            return savedImages;
 
         } catch (Exception e) {
             e.printStackTrace();
             // Devolver un error (400) si ocurre alguna excepción durante el proceso de subida
-            return ResponseEntity.badRequest().body("{\"status\":\"ERROR\", \"message\":\"" + e.getMessage() + "\"}");
+            return null;
         }
     }
 

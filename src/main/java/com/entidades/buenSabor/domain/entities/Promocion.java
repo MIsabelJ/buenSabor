@@ -9,7 +9,9 @@ import org.hibernate.envers.NotAudited;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -48,7 +50,7 @@ public class Promocion  extends Base{
     //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA
     @Builder.Default
     @NotAudited
-    private Set<ImagenPromocion> imagenes = new HashSet<>();
+    private List<ImagenPromocion> imagenes = new ArrayList<>();
 
 
     @ManyToMany (mappedBy = "promociones")

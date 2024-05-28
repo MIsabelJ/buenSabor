@@ -17,7 +17,8 @@ public interface ImagenPromocionService {
     ResponseEntity<List<Map<String, Object>>> getAllImages();
 
     // Método para subir imágenes al sistema
-    ResponseEntity<?> uploadImages(MultipartFile[] files);
+    @Named("uploadImages")
+    List<ImagenPromocion> uploadImages(MultipartFile[] files);
 
     // Método para eliminar una imagen por su identificador público y UUID
     ResponseEntity<String> deleteImage(String publicId, UUID uuid);

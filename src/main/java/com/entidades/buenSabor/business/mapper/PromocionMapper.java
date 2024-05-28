@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {PromocionDetalleMapper.class,ImagenPromocionService.class, SucursalService.class})
 public interface PromocionMapper extends BaseMapper<Promocion, PromocionDto, PromocionPostDto, PromocionPostDto>{
-    @Mapping(target = "imagenes", source = "idImagenes", qualifiedByName = "findByIds")
+    @Mapping(target = "imagenes", source = "imagenes", qualifiedByName = "uploadImages")
     @Mapping(target = "sucursales", source = "idSucursales", qualifiedByName = "getById")
     public Promocion toEntityCreate (PromocionPostDto source);
 }

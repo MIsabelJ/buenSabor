@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,6 +28,6 @@ public class PromocionPostDto {
     private Double precioPromocional;
     private TipoPromocion tipoPromocion;
     private Set<PromocionDetallePostDto> promocionDetalles;
-    private Set<String> idImagenes;
+    private MultipartFile[] imagenes;
     private Set<Long> idSucursales;
 }

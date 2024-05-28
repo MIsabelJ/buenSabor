@@ -5,6 +5,7 @@ import com.entidades.buenSabor.domain.dto.ImagenPromocion.ImagenPromocionDto;
 import com.entidades.buenSabor.domain.dto.PromocionDetalle.PromocionDetalleDto;
 import com.entidades.buenSabor.domain.dto.PromocionDetalle.PromocionDetallePostDto;
 import com.entidades.buenSabor.domain.dto.Sucursal.SucursalDto;
+import com.entidades.buenSabor.domain.entities.ImagenPromocion;
 import com.entidades.buenSabor.domain.enums.TipoPromocion;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,6 +33,6 @@ public class PromocionDto extends BaseDto {
     private Double precioPromocional;
     private TipoPromocion tipoPromocion;
     private Set<PromocionDetalleDto> promocionDetalles;
-    private Set<ImagenPromocionDto> imagenes;
+    private List<ImagenPromocion> imagenes;
     private Set<SucursalDto> sucursales;
 }
