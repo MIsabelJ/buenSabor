@@ -21,6 +21,8 @@ public interface ArticuloManufacturadoMapper extends BaseMapper<ArticuloManufact
 
     @Mapping(target = "unidadMedida", source = "idUnidadMedida", qualifiedByName = "getById")
     @Mapping(target = "categoria", source = "idCategoria", qualifiedByName = "getById")
-    @Mapping(target = "imagenes", source = "idImagenes", qualifiedByName = "findByIds")
+    @Mapping(target = "imagenes", source = "imagenes", qualifiedByName = "uploadImages")
     public ArticuloManufacturado toEntityCreate(ArticuloManufacturadoPostDto source);
+
+
 }

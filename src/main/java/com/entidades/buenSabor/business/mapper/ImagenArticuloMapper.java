@@ -7,4 +7,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ImagenArticuloMapper {
+    public ImagenArticulo toDtoImagenArticuo(ImagenArticuloPostDto imagenArticuloPostDto);
 }

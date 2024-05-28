@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 @AllArgsConstructor
@@ -16,6 +17,6 @@ public class ArticuloPostDto {
     private String denominacion;
     private Double precioVenta;
 
-    private Set<String> idImagenes;
+    private MultipartFile[] imagenes;
     private Long idUnidadMedida;
 }

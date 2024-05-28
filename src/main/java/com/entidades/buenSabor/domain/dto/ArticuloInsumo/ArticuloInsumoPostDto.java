@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 import java.util.UUID;
@@ -18,7 +19,7 @@ import java.util.UUID;
 public class ArticuloInsumoPostDto {
     protected String denominacion;
     protected Double precioVenta;
-    protected Set<String> idImagenes; //En este caso partidular deberiamos recibir un List<Long> de ids y crear un metodo personalizado
+    protected MultipartFile[] imagenes;
     private Double precioCompra;
     private Integer stockActual;
     private Integer stockMaximo;

@@ -19,6 +19,7 @@ import java.util.UUID;
 @Setter
 @Getter
 public class ImagenArticuloDto  {
+    private UUID id;
     private String name; // Nombre de la imagen
-    private MultipartFile file;
+    private String url;
 }

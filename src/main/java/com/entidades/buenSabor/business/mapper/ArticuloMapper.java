@@ -8,8 +8,8 @@ import com.entidades.buenSabor.domain.entities.Articulo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {UnidadMedidaService.class, ImagenArticuloService.class})
-public interface ArticuloMapper extends BaseMapper<Articulo, ArticuloDto, ArticuloPostDto, ArticuloPostDto>{
-    @Mapping(target = "imagenes", source = "idImagenes", qualifiedByName = "findByIds")
+public abstract interface ArticuloMapper extends BaseMapper<Articulo, ArticuloDto, ArticuloPostDto, ArticuloPostDto>{
+    @Mapping(target = "imagenes", source = "imagenes", qualifiedByName = "uploadImages")
     @Mapping(target = "unidadMedida", source = "idUnidadMedida", qualifiedByName = "getById")
     public Articulo toEntityCreate(ArticuloPostDto source);
 }

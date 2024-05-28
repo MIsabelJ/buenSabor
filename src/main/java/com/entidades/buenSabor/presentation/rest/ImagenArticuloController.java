@@ -28,7 +28,7 @@ public class ImagenArticuloController  {
     public ResponseEntity<?> uploadImages(
             @RequestParam(value = "uploads", required = true) MultipartFile[] files) {
         try {
-            return imageService.uploadImages(files); // Llama al método del servicio para subir imágenes
+            return ResponseEntity.ok(imageService.uploadImages(files)); // Llama al método del servicio para subir imágenes
         } catch (Exception e) {
             e.printStackTrace();
             return null; // Manejo básico de errores, se puede mejorar para devolver una respuesta más específica

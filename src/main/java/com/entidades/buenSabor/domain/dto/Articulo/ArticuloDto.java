@@ -4,11 +4,13 @@ import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.ImagenArticulo.ImagenArticuloDto;
 import com.entidades.buenSabor.domain.dto.UnidadMedida.UnidadMedidaDto;
 import com.entidades.buenSabor.domain.entities.Base;
+import com.entidades.buenSabor.domain.entities.ImagenArticulo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +19,6 @@ import java.util.Set;
 public class ArticuloDto extends BaseDto {
     private String denominacion;
     private Double precioVenta;
-    private Set<ImagenArticuloDto> imagenes;
+    private List<ImagenArticuloDto> imagenes;
     private UnidadMedidaDto unidadMedida;
 }

@@ -5,6 +5,7 @@ import com.entidades.buenSabor.business.service.CloudinaryService;
 import com.entidades.buenSabor.business.service.ImagenArticuloService;
 import com.entidades.buenSabor.domain.entities.ImagenArticulo;
 import com.entidades.buenSabor.repositories.ImagenArticuloRepository;
+import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,17 +50,17 @@ public class ImagenArticuloServiceImp implements ImagenArticuloService {
         }
     }
 
-    // Método para subir imágenes a Cloudinary y guardar los detalles en la base de datos
+    // Método para subir imágenes a Cloudinary y retornar la lista de imagenes subidas
     @PostMapping("/uploadImages")
-    public ResponseEntity<?> uploadImages(@RequestParam("files") MultipartFile[] files) {
-        List<ImagenArticulo> savedImages = new ArrayList<>();
+    public List<ImagenArticulo> uploadImages(@RequestParam("files") MultipartFile[] files) {
+        List<ImagenArticulo> uploadsImages = new ArrayList<>();
 
         try {
             // Iterar sobre cada archivo recibido
             for (MultipartFile file : files) {
                 // Verificar si el archivo está vacío
                 if (file.isEmpty()) {
-                    return ResponseEntity.badRequest().body("{\"status\":\"ERROR\", \"message\":\"Empty file\"}");
+                    return null;
                 }
 
                 // Crear una entidad Image y establecer su nombre y URL (subida a Cloudinary)
@@ -69,23 +70,23 @@ public class ImagenArticuloServiceImp implements ImagenArticuloService {
 
                 // Verificar si la URL de la imagen es nula (indicativo de fallo en la subida)
                 if (image.getUrl() == null) {
-                    return ResponseEntity.badRequest().body("{\"status\":\"ERROR\", \"message\":\"Failed to upload file\"}");
+                    return null;
                 }
 
                 // Guardar la entidad Image en la base de datos
-                ImagenArticulo savedImage = imageRepository.save(image);
+                //ImagenArticulo savedImage = imageRepository.save(image);
 
                 // Agregar la imagen guardada a la lista de imágenes subidas
-                savedImages.add(savedImage);
+                uploadsImages.add(image);
             }
 
             // Devolver la lista de imágenes guardadas como JSON con estado OK (200)
-            return ResponseEntity.ok(savedImages);
+            return uploadsImages;
 
         } catch (Exception e) {
             e.printStackTrace();
             // Devolver un error (400) si ocurre alguna excepción durante el proceso de subida
-            return ResponseEntity.badRequest().body("{\"status\":\"ERROR\", \"message\":\"" + e.getMessage() + "\"}");
+            return null;
         }
     }
 

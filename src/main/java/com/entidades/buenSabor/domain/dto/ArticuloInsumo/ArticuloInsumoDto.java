@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -20,7 +21,7 @@ import java.util.Set;
 public class ArticuloInsumoDto extends BaseDto {
     protected String denominacion;
     protected Double precioVenta;
-    protected Set<ImagenArticuloDto> imagenes;
+    protected List<ImagenArticulo> imagenes;
     private Double precioCompra;
     private Integer stockActual;
     private Integer stockMaximo;
