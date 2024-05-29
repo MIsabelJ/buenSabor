@@ -7,9 +7,8 @@ import com.entidades.buenSabor.domain.dto.Promocion.PromocionPostDto;
 import com.entidades.buenSabor.domain.entities.Promocion;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-@Mapper(componentModel = "spring", uses = {PromocionDetalleMapper.class,ImagenPromocionService.class, SucursalService.class})
+@Mapper(componentModel = "spring", uses = {PromocionDetalleMapper.class, SucursalService.class})
 public interface PromocionMapper extends BaseMapper<Promocion, PromocionDto, PromocionPostDto, PromocionPostDto>{
-    @Mapping(target = "imagenes", source = "imagenes", qualifiedByName = "uploadImages")
     @Mapping(target = "sucursales", source = "idSucursales", qualifiedByName = "getById")
     public Promocion toEntityCreate (PromocionPostDto source);
 }
