@@ -21,7 +21,7 @@ import java.util.Set;
 @Getter
 @ToString
 @SuperBuilder
-//@Audited
+@Audited
 public class Sucursal extends  Base{
 
     private String nombre;

@@ -3,6 +3,7 @@ package com.entidades.buenSabor.domain.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.Set;
 @Setter
 @SuperBuilder
 @Inheritance(strategy = InheritanceType.JOINED)
-//@Audited
+@Audited
 public class Articulo  extends Base {
 
     protected String denominacion;

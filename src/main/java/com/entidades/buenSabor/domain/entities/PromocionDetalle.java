@@ -12,7 +12,7 @@ import org.hibernate.envers.Audited;
 @Setter
 @Getter
 @SuperBuilder
-//@Audited
+@Audited
 public class PromocionDetalle extends Base{
 
     private int cantidad;
