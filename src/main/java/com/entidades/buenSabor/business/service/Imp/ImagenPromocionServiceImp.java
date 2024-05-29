@@ -53,7 +53,7 @@ public class ImagenPromocionServiceImp implements ImagenPromocionService {
 
     // Método para subir imágenes a Cloudinary y guardar los detalles en la base de datos
     @PostMapping("/uploadImages")
-    public List<ImagenPromocion> uploadImages(@RequestParam("files") MultipartFile[] files) {
+    public ResponseEntity<List<ImagenPromocion>> uploadImages(@RequestParam("files") MultipartFile[] files) {
         List<ImagenPromocion> savedImages = new ArrayList<>();
 
         try {
@@ -82,7 +82,7 @@ public class ImagenPromocionServiceImp implements ImagenPromocionService {
             }
 
             // Devolver la lista de imágenes guardadas como JSON con estado OK (200)
-            return savedImages;
+            return ResponseEntity.ok(savedImages);
 
         } catch (Exception e) {
             e.printStackTrace();

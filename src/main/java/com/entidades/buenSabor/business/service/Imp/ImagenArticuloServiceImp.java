@@ -51,7 +51,7 @@ public class ImagenArticuloServiceImp implements ImagenArticuloService {
     }
 
     // Método para subir imágenes a Cloudinary y retornar la lista de imagenes subidas
-    @PostMapping("/uploadImages")
+    @Override
     public ResponseEntity<List<ImagenArticulo>> uploadImages(@RequestParam("files") MultipartFile[] files) {
         List<ImagenArticulo> uploadsImages = new ArrayList<>();
 
