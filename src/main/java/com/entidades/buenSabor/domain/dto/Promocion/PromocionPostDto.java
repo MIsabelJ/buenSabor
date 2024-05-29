@@ -1,7 +1,6 @@
 package com.entidades.buenSabor.domain.dto.Promocion;
 
 import com.entidades.buenSabor.domain.dto.PromocionDetalle.PromocionDetallePostDto;
-import com.entidades.buenSabor.domain.entities.ImagenArticulo;
 import com.entidades.buenSabor.domain.entities.ImagenPromocion;
 import com.entidades.buenSabor.domain.enums.TipoPromocion;
 import io.swagger.v3.oas.annotations.media.Schema;
