@@ -52,7 +52,7 @@ public class ImagenArticuloServiceImp implements ImagenArticuloService {
 
     // Método para subir imágenes a Cloudinary y retornar la lista de imagenes subidas
     @PostMapping("/uploadImages")
-    public List<ImagenArticulo> uploadImages(@RequestParam("files") MultipartFile[] files) {
+    public ResponseEntity<List<ImagenArticulo>> uploadImages(@RequestParam("files") MultipartFile[] files) {
         List<ImagenArticulo> uploadsImages = new ArrayList<>();
 
         try {
@@ -81,7 +81,7 @@ public class ImagenArticuloServiceImp implements ImagenArticuloService {
             }
 
             // Devolver la lista de imágenes guardadas como JSON con estado OK (200)
-            return uploadsImages;
+            return ResponseEntity.ok(uploadsImages);
 
         } catch (Exception e) {
             e.printStackTrace();

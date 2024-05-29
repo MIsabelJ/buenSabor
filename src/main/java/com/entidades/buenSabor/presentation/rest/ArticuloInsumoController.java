@@ -5,9 +5,9 @@ import com.entidades.buenSabor.domain.dto.ArticuloInsumo.ArticuloInsumoDto;
 import com.entidades.buenSabor.domain.dto.ArticuloInsumo.ArticuloInsumoPostDto;
 import com.entidades.buenSabor.domain.entities.ArticuloInsumo;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/articulo-insumo")
@@ -16,4 +16,5 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
     public ArticuloInsumoController(ArticuloInsumoFacadeImp facade) {
         super(facade);
     }
+
 }

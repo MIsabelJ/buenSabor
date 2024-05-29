@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,7 +27,7 @@ public class ArticuloManufacturadoPostDto {
     private Integer tiempoEstimadoMinutos;
     private String preparacion;
     private Set<ArticuloManufacturadoDetallePostDto> articuloManufacturadoDetalles;
-    protected MultipartFile[] imagenes;
+    protected List<ImagenArticulo> imagenes;
     protected Long idUnidadMedida;
     private Long idCategoria;
 }

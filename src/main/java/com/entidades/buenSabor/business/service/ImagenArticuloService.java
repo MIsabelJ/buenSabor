@@ -17,7 +17,7 @@ public interface ImagenArticuloService  {
 
     // Método para subir imágenes al sistema
     @Named("uploadImages")
-    List<ImagenArticulo> uploadImages(MultipartFile[] files);
+    ResponseEntity<List<ImagenArticulo>> uploadImages(MultipartFile[] files);
 
     // Método para eliminar una imagen por su identificador público y UUID
     ResponseEntity<String> deleteImage(String publicId, UUID uuid);
