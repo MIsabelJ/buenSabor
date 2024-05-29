@@ -1,6 +1,8 @@
 package com.entidades.buenSabor.domain.dto.Promocion;
 
 import com.entidades.buenSabor.domain.dto.PromocionDetalle.PromocionDetallePostDto;
+import com.entidades.buenSabor.domain.entities.ImagenArticulo;
+import com.entidades.buenSabor.domain.entities.ImagenPromocion;
 import com.entidades.buenSabor.domain.enums.TipoPromocion;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,6 +31,6 @@ public class PromocionPostDto {
     private Double precioPromocional;
     private TipoPromocion tipoPromocion;
     private Set<PromocionDetallePostDto> promocionDetalles;
-    private MultipartFile[] imagenes;
+    private List<ImagenPromocion> imagenes;
     private Set<Long> idSucursales;
 }
