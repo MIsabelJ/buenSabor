@@ -26,7 +26,7 @@ public class ArticuloManufacturadoDto extends BaseDto {
     private Integer tiempoEstimadoMinutos;
     private String preparacion;
     private Set<ArticuloManufacturadoDetalleDto> articuloManufacturadoDetalles;
-    protected Set<ImagenArticuloDto> imagenes;
+    protected Set<ImagenArticulo> imagenes;
     protected UnidadMedidaDto unidadMedida;
     private CategoriaDto categoria;
 }
