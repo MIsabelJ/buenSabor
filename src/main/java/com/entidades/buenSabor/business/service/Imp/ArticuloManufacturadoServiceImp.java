@@ -8,6 +8,7 @@ import com.entidades.buenSabor.domain.entities.ArticuloManufacturadoDetalle;
 import com.entidades.buenSabor.domain.entities.ImagenArticulo;
 import com.entidades.buenSabor.repositories.ArticuloManufacturadoRepository;
 import com.entidades.buenSabor.repositories.ImagenArticuloRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +25,36 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
     ImagenArticuloRepository imagenArticuloRepository;
 
     @Override
+    @Transactional
     public ArticuloManufacturado create(ArticuloManufacturado request){
         Set<ArticuloManufacturadoDetalle> detalles = request.getArticuloManufacturadoDetalles();
         List<ImagenArticulo> imagenes = request.getImagenes();
         detalles.forEach(articuloManufacturadoDetalleService::create);
         imagenes.forEach(imagenArticuloRepository::save);
         return super.create(request);
+    }
+
+    @Override
+    @Transactional
+    public ArticuloManufacturado update(ArticuloManufacturado request, Long id){
+        ArticuloManufacturado manufacturadoToUpdate = baseRepository.getById(id);
+        Set<ArticuloManufacturadoDetalle> detallesToSave = request.getArticuloManufacturadoDetalles();
+        if(detallesToSave != null){
+            for (ArticuloManufacturadoDetalle detalle : detallesToSave){
+                if (detalle.getId() == null){
+                    articuloManufacturadoDetalleService.create(detalle);
+                }
+            }
+            manufacturadoToUpdate.setArticuloManufacturadoDetalles(detallesToSave);
+        }
+        List<ImagenArticulo> imagesToSave = request.getImagenes();
+        if (imagesToSave != null){
+            for (ImagenArticulo imagen : imagesToSave){
+                imagenArticuloRepository.save(imagen);
+            }
+            manufacturadoToUpdate.setImagenes(imagesToSave);
+        }
+
+        return articuloManufacturadoRepository.save(manufacturadoToUpdate);
     }
 }

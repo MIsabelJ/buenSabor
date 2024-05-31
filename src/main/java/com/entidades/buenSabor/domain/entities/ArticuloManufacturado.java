@@ -25,7 +25,7 @@ public class ArticuloManufacturado  extends Articulo{
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "articulo_manufacturado_id")
     @Builder.Default
     private Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles = new HashSet<>();

@@ -17,6 +17,7 @@ import java.util.Set;
 @Setter
 @Getter
 public class ArticuloManufacturadoDetallePostDto {
+    private Long id;
     private Integer cantidad;
     private Long idArticuloInsumo;
 }
