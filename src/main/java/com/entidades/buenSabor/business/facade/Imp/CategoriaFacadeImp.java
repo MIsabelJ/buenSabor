@@ -4,9 +4,11 @@ import com.entidades.buenSabor.business.facade.Base.BaseFacadeImp;
 import com.entidades.buenSabor.business.facade.CategoriaFacade;
 import com.entidades.buenSabor.business.mapper.ArticuloInsumoMapper;
 import com.entidades.buenSabor.business.mapper.ArticuloManufacturadoMapper;
+import com.entidades.buenSabor.business.mapper.ArticuloMapper;
 import com.entidades.buenSabor.business.mapper.BaseMapper;
 import com.entidades.buenSabor.business.service.Base.BaseService;
 import com.entidades.buenSabor.business.service.CategoriaService;
+import com.entidades.buenSabor.domain.dto.Articulo.ArticuloDto;
 import com.entidades.buenSabor.domain.dto.ArticuloInsumo.ArticuloInsumoDto;
 import com.entidades.buenSabor.domain.dto.ArticuloManufacturado.ArticuloManufacturadoDto;
 import com.entidades.buenSabor.domain.dto.Categoria.CategoriaDto;
@@ -29,6 +31,8 @@ public class CategoriaFacadeImp extends BaseFacadeImp<Categoria, CategoriaDto, C
     ArticuloInsumoMapper insumoMapper;
     @Autowired
     ArticuloManufacturadoMapper articuloManufacturadoMapper;
+    @Autowired
+    ArticuloMapper articuloMapper;
     @Override
     public CategoriaDto addSubCategoria(Long idCategoria, CategoriaPostDto subCategoria) {
         Categoria subCategoriaToCreate = baseMapper.toEntityCreate(subCategoria);
@@ -42,6 +46,10 @@ public class CategoriaFacadeImp extends BaseFacadeImp<Categoria, CategoriaDto, C
 
     public List<ArticuloManufacturadoDto> getManufacturadoByCategoriaId(Long idCategoria){
         return articuloManufacturadoMapper.toDTOsList(categoriaService.getManufacturadoByCategoriaId(idCategoria));
+    }
+
+    public List<ArticuloDto> getArticulosByCategoriaId(Long idCategoria){
+        return articuloMapper.toDTOsList(categoriaService.getArticulosByCategoriaId(idCategoria));
     }
 
 }

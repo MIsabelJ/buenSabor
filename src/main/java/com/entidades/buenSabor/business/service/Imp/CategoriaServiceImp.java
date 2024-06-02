@@ -3,16 +3,14 @@ package com.entidades.buenSabor.business.service.Imp;
 import com.entidades.buenSabor.business.service.Base.BaseServiceImp;
 import com.entidades.buenSabor.business.service.CategoriaService;
 import com.entidades.buenSabor.business.service.SucursalService;
-import com.entidades.buenSabor.domain.entities.ArticuloInsumo;
-import com.entidades.buenSabor.domain.entities.ArticuloManufacturado;
-import com.entidades.buenSabor.domain.entities.Categoria;
-import com.entidades.buenSabor.domain.entities.Sucursal;
+import com.entidades.buenSabor.domain.entities.*;
 import com.entidades.buenSabor.repositories.ArticuloRepository;
 import com.entidades.buenSabor.repositories.BaseRepository;
 import com.entidades.buenSabor.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -57,5 +55,15 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria, Long> impleme
         return categoriaRepository.findManufacturadosByCategoriaId(idCategoria);
     }
 
+    public List<Articulo> getArticulosByCategoriaId(Long idCategoria){
+        List<Articulo> articulos = new ArrayList<>();;
+        for (ArticuloInsumo insumo: categoriaRepository.findAllByCategoriaId(idCategoria)) {
+            articulos.add(insumo);
+        }
+        for (ArticuloManufacturado manufacturado: categoriaRepository.findManufacturadosByCategoriaId(idCategoria)) {
+            articulos.add(manufacturado);
+        }
+        return articulos;
+    }
 
 }

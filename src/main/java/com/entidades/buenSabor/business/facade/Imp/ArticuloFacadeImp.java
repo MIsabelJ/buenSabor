@@ -14,4 +14,5 @@ public class ArticuloFacadeImp extends BaseFacadeImp<Articulo, ArticuloDto, Arti
     public ArticuloFacadeImp(BaseService<Articulo, Long> baseService, BaseMapper<Articulo, ArticuloDto, ArticuloPostDto, ArticuloPostDto> baseMapper) {
         super(baseService, baseMapper);
     }
+
 }
