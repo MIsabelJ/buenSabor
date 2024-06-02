@@ -17,4 +17,5 @@ public class CategoriaPostDto {
     private String denominacion;
     private Set<Long> idSucursales;
     private Set<Long> idSubCategorias;
+    private boolean esParaElaborar;
 }

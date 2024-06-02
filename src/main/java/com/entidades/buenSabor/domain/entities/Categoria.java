@@ -21,6 +21,7 @@ import java.util.Set;
 @Audited
 public class Categoria extends Base{
     private String denominacion;
+    private boolean esParaElaborar;
 
     @ManyToMany(mappedBy = "categorias")
     //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA

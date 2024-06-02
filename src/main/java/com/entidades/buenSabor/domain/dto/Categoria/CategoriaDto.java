@@ -19,5 +19,6 @@ public class CategoriaDto extends BaseDto {
     private String denominacion;
     private Set<SucursalDto> sucursales;
     private Set<CategoriaDto> subCategorias;
+    private boolean esParaElaborar;
 
 }
