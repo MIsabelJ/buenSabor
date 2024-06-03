@@ -39,7 +39,7 @@ public class CategoriaController extends BaseControllerImp<Categoria, CategoriaD
     }
 
     @GetMapping("/{idCategoria}/articulos")
-    public ResponseEntity<List<ArticuloDto>> getArticulosByCategoriaId(@PathVariable Long idCategoria){
+    public ResponseEntity<List<?>> getArticulosByCategoriaId(@PathVariable Long idCategoria){
         return ResponseEntity.ok(facade.getArticulosByCategoriaId(idCategoria));
     }
 }
