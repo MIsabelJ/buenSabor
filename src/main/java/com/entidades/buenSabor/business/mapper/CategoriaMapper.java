@@ -10,6 +10,7 @@ import com.entidades.buenSabor.domain.entities.ArticuloManufacturado;
 import com.entidades.buenSabor.domain.entities.Categoria;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 import java.util.Set;
@@ -31,7 +32,10 @@ public interface CategoriaMapper extends BaseMapper<Categoria, CategoriaDto,Cate
     // Este método define la transformación de un CategoriaCreateDto a una entidad Categoria.
     @Mapping(target = "sucursales", source = "idSucursales",qualifiedByName = "getById")
     @Mapping(target = "subCategorias", source = "idSubCategorias",qualifiedByName = "getById")
-    Categoria toEntityCreate(CategoriaPostDto source);
+    public Categoria toEntityCreate(CategoriaPostDto source);
 
+    @Mapping(target = "sucursales", source = "idSucursales",qualifiedByName = "getById")
+    @Mapping(target = "subCategorias", source = "idSubCategorias",qualifiedByName = "getById")
+    public Categoria toUpdate(@MappingTarget Categoria entity, CategoriaPostDto source);
 
 }
