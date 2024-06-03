@@ -1,8 +1,8 @@
 package com.entidades.buenSabor.business.mapper;
 
-import com.entidades.buenSabor.domain.dto.Empresa.EmpresaDto;
-import com.entidades.buenSabor.domain.dto.Empresa.EmpresaPostDto;
-import com.entidades.buenSabor.domain.entities.Empresa;
+import com.entidades.buenSabor.domain.dto.Factura.FacturaDto;
+import com.entidades.buenSabor.domain.dto.Factura.FacturaDtoPost;
+import com.entidades.buenSabor.domain.entities.Factura;
 
-public interface FacturaMapper extends BaseMapper<Empresa, EmpresaDto, EmpresaPostDto, EmpresaPostDto> {
+public interface FacturaMapper extends BaseMapper<Factura, FacturaDto, FacturaDtoPost, FacturaDtoPost> {
 }
