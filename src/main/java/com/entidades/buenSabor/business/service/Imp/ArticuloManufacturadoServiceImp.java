@@ -29,8 +29,10 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
     public ArticuloManufacturado create(ArticuloManufacturado request){
         Set<ArticuloManufacturadoDetalle> detalles = request.getArticuloManufacturadoDetalles();
         List<ImagenArticulo> imagenes = request.getImagenes();
-        detalles.forEach(articuloManufacturadoDetalleService::create);
         imagenes.forEach(imagenArticuloRepository::save);
+        for (ArticuloManufacturadoDetalle detalleToSave: detalles) {
+            request.getArticuloManufacturadoDetalles().add(articuloManufacturadoDetalleService.create(detalleToSave));
+        }
         return super.create(request);
     }
 

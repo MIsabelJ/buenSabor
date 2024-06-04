@@ -10,7 +10,6 @@ import java.util.UUID;
 @Data // Anotación de Lombok para la generación automática de getters, setters, toString, etc.
 @Table(name = "imagen_articulo") // Especifica el nombre de la tabla en la base de datos
 public class ImagenArticulo {
-
     @Id // Indica que este campo es la clave primaria
     @GeneratedValue(strategy = GenerationType.UUID) // Generación automática del UUID como estrategia de generación
     @Column(name = "id") // Mapea este campo a la columna "id" en la tabla

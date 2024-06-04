@@ -1,13 +1,9 @@
 package com.entidades.buenSabor.domain.dto.Pedido;
 
-import com.entidades.buenSabor.domain.dto.Cliente.ClienteDto;
 import com.entidades.buenSabor.domain.dto.DetallePedido.DetallePedidoDto;
-import com.entidades.buenSabor.domain.dto.Domicilio.DomicilioDto;
+import com.entidades.buenSabor.domain.dto.DetallePedido.DetallePedidoPostDto;
 import com.entidades.buenSabor.domain.dto.Domicilio.DomicilioPostDto;
-import com.entidades.buenSabor.domain.dto.Empleado.EmpleadoDto;
-import com.entidades.buenSabor.domain.dto.Factura.FacturaDto;
-import com.entidades.buenSabor.domain.dto.Sucursal.SucursalDto;
-import com.entidades.buenSabor.domain.dto.Sucursal.SucursalPostDto;
+import com.entidades.buenSabor.domain.dto.Factura.FacturaPostDto;
 import com.entidades.buenSabor.domain.enums.Estado;
 import com.entidades.buenSabor.domain.enums.FormaPago;
 import com.entidades.buenSabor.domain.enums.TipoEnvio;
@@ -35,8 +31,8 @@ public class PedidoPostDto {
 
     private DomicilioPostDto domicilio;
     private Long idSucursal;
-    private FacturaDto factura;
+    private FacturaPostDto factura;
     private Long idCliente;
-    private Set<DetallePedidoDto> detallePedidos;
+    private Set<DetallePedidoPostDto> detallePedidos;
     private Long idEmpleado;
 }

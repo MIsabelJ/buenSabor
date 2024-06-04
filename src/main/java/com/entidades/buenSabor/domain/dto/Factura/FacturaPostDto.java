@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Setter
 @Getter
-public class FacturaDtoPost {
+public class FacturaPostDto {
     private LocalDate fechaFacturacion;
     private Integer mpPaymentId;
     private Integer mpMerchantOrderId;

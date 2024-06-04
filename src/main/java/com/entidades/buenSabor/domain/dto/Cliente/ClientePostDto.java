@@ -1,6 +1,7 @@
 package com.entidades.buenSabor.domain.dto.Cliente;
 
 import com.entidades.buenSabor.domain.dto.Domicilio.DomicilioDto;
+import com.entidades.buenSabor.domain.dto.Domicilio.DomicilioPostDto;
 import com.entidades.buenSabor.domain.dto.Pedido.PedidoDto;
 import com.entidades.buenSabor.domain.dto.Pedido.PedidoPostDto;
 import com.entidades.buenSabor.domain.entities.ImagenCliente;
@@ -26,6 +27,6 @@ public class ClientePostDto {
     private Long idUsuario;
 
     private ImagenCliente imagenCliente;
-    private Set<Long> idDomicilios;
+    private Set<DomicilioPostDto> idDomicilios;
     private Set<PedidoPostDto> pedidos = new HashSet<>();
 }
