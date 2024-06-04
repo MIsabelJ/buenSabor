@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -15,6 +16,6 @@ import java.util.Set;
 @Getter
 public class EmpleadoPostDto {
     private Rol tipoEmpleado;
-    private Set<Pedido> pedidos;
+    private Set<Pedido> pedidos = new HashSet<>();
     private Long idSucursal;
 }
