@@ -28,6 +28,7 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
             pedido.getDetallePedidos().add(detallePedidoService.create(detalle));
         }
         pedido.getCliente().getPedidos().add(pedido);
+        pedido.getEmpleado().getPedidos().add(pedido);
         return pedido;
     }
 }
