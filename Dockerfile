@@ -1,14 +1,27 @@
-FROM alpine:latest as build
+# Etapa de construcción
+FROM gradle:7.5.0-jdk17 AS build
 
-RUN apk update
-RUN apk add openjdk17
+# Establece el directorio de trabajo dentro del contenedor
+WORKDIR /app
 
-COPY . .
-RUN chmod +x ./gradlew
-RUN ./gradlew bootJar --no-daemon
+# Copia los archivos de configuración de Gradle
+COPY build.gradle .
+COPY settings.gradle .
 
-FROM openjdk:17-alpine
-EXPOSE 8080
-COPY --from=build ./build/libs/buenSabor-0.0.1-SNAPSHOT.jar ./app.jar
+# Copia el código fuente del proyecto
+COPY src ./src
 
+# Compila el proyecto y empaqueta en un archivo JAR
+RUN gradle build -x test
+
+# Etapa de ejecución
+FROM amazoncorretto:17-alpine3.19-jdk
+
+# Establece el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copia el archivo JAR desde la etapa de compilación
+COPY --from=build /app/build/libs/*.jar app.jar
+
+# Define el comando para ejecutar la aplicación Java al iniciar el contenedor
 ENTRYPOINT ["java", "-jar", "app.jar"]
