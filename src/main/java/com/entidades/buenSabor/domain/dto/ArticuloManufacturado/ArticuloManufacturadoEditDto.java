@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 public class ArticuloManufacturadoEditDto {
+    private Double precioCompra;
     protected String denominacion;
     protected Double precioVenta;
     private String descripcion;

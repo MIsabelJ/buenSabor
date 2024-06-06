@@ -18,7 +18,7 @@ import java.util.Set;
 public class ArticuloPostDto {
     private String denominacion;
     private Double precioVenta;
-
+    private Double precioCompra;
     private List<ImagenArticulo> imagenes;
     private Long idUnidadMedida;
 }

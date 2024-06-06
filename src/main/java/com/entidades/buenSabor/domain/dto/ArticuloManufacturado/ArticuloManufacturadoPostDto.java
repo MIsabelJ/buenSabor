@@ -21,6 +21,7 @@ import java.util.UUID;
 @Setter
 @Getter
 public class ArticuloManufacturadoPostDto {
+    private Double precioCompra;
     protected String denominacion;
     protected Double precioVenta;
     private String descripcion;

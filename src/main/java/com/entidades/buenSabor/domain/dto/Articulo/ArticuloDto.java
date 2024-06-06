@@ -17,6 +17,7 @@ import java.util.Set;
 @Setter
 @Getter
 public class ArticuloDto extends BaseDto {
+    private Double precioCompra;
     private String denominacion;
     private Double precioVenta;
     private List<ImagenArticulo> imagenes;

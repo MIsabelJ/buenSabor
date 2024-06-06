@@ -20,6 +20,7 @@ import java.util.Set;
 @Setter
 @Getter
 public class ArticuloManufacturadoDto extends BaseDto {
+    private Double precioCompra;
     protected String denominacion;
     protected Double precioVenta;
     private String descripcion;

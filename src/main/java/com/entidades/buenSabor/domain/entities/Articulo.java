@@ -23,6 +23,7 @@ import java.util.Set;
 @Audited
 public class Articulo  extends Base {
 
+    private Double precioCompra;
     protected String denominacion;
     protected Double precioVenta;
 
