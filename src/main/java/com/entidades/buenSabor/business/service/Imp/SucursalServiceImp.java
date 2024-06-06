@@ -7,6 +7,7 @@ import com.entidades.buenSabor.domain.entities.Categoria;
 import com.entidades.buenSabor.domain.entities.Domicilio;
 import com.entidades.buenSabor.domain.entities.Sucursal;
 import com.entidades.buenSabor.repositories.SucursalRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class SucursalServiceImp extends BaseServiceImp<Sucursal,Long> implements
     SucursalRepository sucursalRepository;
 
     @Override
+    @Transactional
     public Sucursal create (Sucursal sucursal){
         Domicilio domicilioSaved = domicilioService.create(sucursal.getDomicilio());
         sucursal.setDomicilio(domicilioSaved);
