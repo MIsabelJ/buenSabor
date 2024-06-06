@@ -1,5 +1,6 @@
 package com.entidades.buenSabor.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
@@ -41,6 +42,7 @@ public class Sucursal extends  Base{
             inverseJoinColumns = @JoinColumn(name = "sucursal_id"))
     //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA
     @Builder.Default
+    @JsonIgnoreProperties("sucursales")
     private Set<Promocion> promociones = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
@@ -52,6 +54,7 @@ public class Sucursal extends  Base{
             inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA
     @Builder.Default
+    @JsonIgnoreProperties("sucursales")
     private Set<Categoria> categorias = new HashSet<>();
 
 
@@ -59,6 +62,7 @@ public class Sucursal extends  Base{
 
     @OneToMany(mappedBy = "sucursal",cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
     @Builder.Default
+    @JsonIgnoreProperties("sucursal")
     private Set<Empleado> empleados = new HashSet<>();
 
     @ManyToOne

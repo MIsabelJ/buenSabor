@@ -1,5 +1,6 @@
 package com.entidades.buenSabor.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
@@ -26,6 +27,7 @@ public class Categoria extends Base{
     @ManyToMany(mappedBy = "categorias")
     //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA
     @Builder.Default
+    @JsonIgnoreProperties("categorias")
     private Set<Sucursal> sucursales = new HashSet<>();
 
 

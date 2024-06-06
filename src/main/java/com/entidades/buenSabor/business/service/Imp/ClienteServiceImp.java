@@ -8,6 +8,7 @@ import com.entidades.buenSabor.domain.entities.Cliente;
 import com.entidades.buenSabor.domain.entities.Domicilio;
 import com.entidades.buenSabor.domain.entities.ImagenCliente;
 import com.entidades.buenSabor.repositories.ImagenClienteRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class ClienteServiceImp extends BaseServiceImp<Cliente, Long> implements 
     ImagenClienteRepository imagenClienteRepository;
     @Autowired
     DomicilioService domicilioService;
+    @Transactional
     @Override
     public Cliente create(Cliente cliente){
         ImagenCliente imagen = cliente.getImagenCliente();

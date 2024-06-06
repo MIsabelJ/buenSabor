@@ -27,6 +27,6 @@ public class ClientePostDto {
     private Long idUsuario;
 
     private ImagenCliente imagenCliente;
-    private Set<DomicilioPostDto> idDomicilios;
-    private Set<PedidoPostDto> pedidos = new HashSet<>();
+    private Set<DomicilioPostDto> domicilios;
+    private Set<PedidoPostDto> pedidos;
 }

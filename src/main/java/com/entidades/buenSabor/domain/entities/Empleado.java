@@ -1,6 +1,7 @@
 package com.entidades.buenSabor.domain.entities;
 
 import com.entidades.buenSabor.domain.enums.Rol;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -23,10 +24,12 @@ public class Empleado extends Base{
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.REFRESH, orphanRemoval = true)
     @ToString.Exclude
     @Builder.Default
+    @JsonIgnoreProperties("empleado")
     private Set<Pedido> pedidos= new HashSet<>();
 
     @ManyToOne
     @ToString.Exclude
     @JoinColumn(name = "sucursal_id")
+    @JsonIgnoreProperties("empleados")
     private Sucursal sucursal;
 }

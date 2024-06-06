@@ -1,6 +1,7 @@
 package com.entidades.buenSabor.domain.entities;
 
 import com.entidades.buenSabor.domain.enums.TipoPromocion;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
@@ -55,6 +56,7 @@ public class Promocion  extends Base{
 
 
     @ManyToMany (mappedBy = "promociones")
+    @JsonIgnoreProperties("promociones")
     private Set<Sucursal> sucursales = new HashSet<>();
 
 

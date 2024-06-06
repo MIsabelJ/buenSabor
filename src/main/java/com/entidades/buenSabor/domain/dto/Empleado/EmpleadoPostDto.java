@@ -16,6 +16,6 @@ import java.util.Set;
 @Getter
 public class EmpleadoPostDto {
     private Rol tipoEmpleado;
-    private Set<Pedido> pedidos = new HashSet<>();
+    private Set<Pedido> pedidos;
     private Long idSucursal;
 }

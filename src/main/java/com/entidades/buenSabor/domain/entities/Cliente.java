@@ -1,8 +1,10 @@
 package com.entidades.buenSabor.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.OnDelete;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
@@ -44,5 +46,7 @@ public class Cliente extends Base{
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA
     @Builder.Default
+    @JsonIgnoreProperties("cliente")
+    @ToString.Exclude
     private Set<Pedido> pedidos = new HashSet<>();
 }

@@ -4,6 +4,8 @@ package com.entidades.buenSabor.domain.entities;
 import com.entidades.buenSabor.domain.enums.Estado;
 import com.entidades.buenSabor.domain.enums.FormaPago;
 import com.entidades.buenSabor.domain.enums.TipoEnvio;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -24,6 +26,7 @@ import java.util.Set;
 @Audited
 public class Pedido extends Base{
 
+    @Schema(type = "string", format = "time", pattern = "HH:mm:ss", description = "Horario de apertura en formato HH:mm:ss")
     private LocalTime horaEstimadaFinalizacion;
     private Double total;
     private Double totalCosto;
@@ -43,6 +46,8 @@ public class Pedido extends Base{
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonIgnoreProperties("pedidos")
+    @ToString.Exclude
     private Cliente cliente;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -55,5 +60,7 @@ public class Pedido extends Base{
 
     @ManyToOne
     @JoinColumn(name = "empleado_id")
+    @JsonIgnoreProperties("pedidos")
+    @ToString.Exclude
     private Empleado empleado;
 }
