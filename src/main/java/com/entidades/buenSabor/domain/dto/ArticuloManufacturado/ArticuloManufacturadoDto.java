@@ -1,5 +1,6 @@
 package com.entidades.buenSabor.domain.dto.ArticuloManufacturado;
 
+import com.entidades.buenSabor.domain.dto.Articulo.ArticuloDto;
 import com.entidades.buenSabor.domain.dto.ArticuloManufacturdadoDetalle.ArticuloManufacturadoDetalleDto;
 import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.Categoria.CategoriaDto;
@@ -19,15 +20,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Setter
 @Getter
-public class ArticuloManufacturadoDto extends BaseDto {
-    private Double precioCompra;
-    protected String denominacion;
-    protected Double precioVenta;
+public class ArticuloManufacturadoDto extends ArticuloDto {
     private String descripcion;
     private Integer tiempoEstimadoMinutos;
     private String preparacion;
     private Set<ArticuloManufacturadoDetalleDto> articuloManufacturadoDetalles;
-    protected Set<ImagenArticulo> imagenes;
-    protected UnidadMedidaDto unidadMedida;
     private CategoriaDto categoria;
 }

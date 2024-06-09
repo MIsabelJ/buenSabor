@@ -15,6 +15,8 @@ import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,4 +40,17 @@ public class ArticuloServiceImp extends BaseServiceImp<Articulo, Long> implement
 
         throw new OpenApiResourceNotFoundException("Articulo not found with id " + id);
     }
+
+    @Override
+    public List<Articulo> getAll(){
+        List<ArticuloInsumo> insumos = articuloInsumoRepository.findAll();
+        List<ArticuloManufacturado> manufacturados = articuloManufacturadoRepository.findAll();
+
+        List<Articulo> articulos = new ArrayList<>();
+        articulos.addAll(insumos);
+        articulos.addAll(manufacturados);
+
+        return articulos;
+    }
+
 }

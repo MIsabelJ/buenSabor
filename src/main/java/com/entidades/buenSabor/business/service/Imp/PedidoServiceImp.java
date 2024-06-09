@@ -3,10 +3,13 @@ package com.entidades.buenSabor.business.service.Imp;
 import com.entidades.buenSabor.business.service.*;
 import com.entidades.buenSabor.business.service.Base.BaseServiceImp;
 import com.entidades.buenSabor.domain.entities.*;
+import com.entidades.buenSabor.domain.enums.Estado;
+import com.entidades.buenSabor.repositories.PedidoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,23 +25,34 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
     ClienteService clienteService;
     @Autowired
     EmpleadoService empleadoService;
+    @Autowired
+    PedidoRepository pedidoRepository;
     @Override
     @Transactional
     public Pedido create(Pedido pedido){
-        Factura facturaSaved = facturaService.create(pedido.getFactura());
         Set<DetallePedido> detallesToSave = pedido.getDetallePedidos();
-        Cliente cliente = pedido.getCliente();
-        Empleado empleado = pedido.getEmpleado();
+        Set<DetallePedido> detallesActualizados = new HashSet<>();
 
-        pedido.setFactura(facturaSaved);
-        for (DetallePedido detalle: detallesToSave) {
-            pedido.getDetallePedidos().add(detallePedidoService.create(detalle));
+        // Aplica descuento de stock a cada detalle del pedido
+        try{
+            for (DetallePedido detalle : detallesToSave) {
+                DetallePedido actualizado = detallePedidoService.descuentoDeStock(detalle);
+                if (actualizado != null) {
+                    detallesActualizados.add(actualizado);
+                } else {
+                    throw new Exception("EL PEDIDO EXCEDE EL STOCK");
+                }
+            }
+        }catch (Exception e){
+            pedido.setEstado(Estado.RECHAZADO);
+            return super.create(pedido);
         }
 
-        cliente.getPedidos().add(pedido);
-        empleado.getPedidos().add(pedido);
-        empleadoService.create(empleado);
-        clienteService.create(cliente);
-        return pedido;
+        pedido.setDetallePedidos(detallesActualizados);
+
+        pedido.getEmpleado().getPedidos().add(pedido);
+        pedido.getCliente().getPedidos().add(pedido);
+
+        return super.create(pedido);
     }
 }
