@@ -1,5 +1,7 @@
 package com.entidades.buenSabor.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -21,6 +23,11 @@ import java.util.Set;
 @SuperBuilder
 @Inheritance(strategy = InheritanceType.JOINED)
 @Audited
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = ArticuloInsumo.class, name = "ArticuloInsumo"),
+        @JsonSubTypes.Type(value = ArticuloManufacturado.class, name = "ArticuloManufacturado")
+})
 public class Articulo  extends Base {
 
     private Double precioCompra;
