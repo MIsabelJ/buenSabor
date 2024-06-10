@@ -47,6 +47,8 @@ public class Articulo  extends Base {
     @ManyToOne
     protected UnidadMedida unidadMedida;
 
+    @ManyToOne
+    protected Sucursal sucursal;
 
 }
 

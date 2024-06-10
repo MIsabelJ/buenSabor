@@ -21,4 +21,5 @@ public class ArticuloPostDto {
     private Double precioCompra;
     private List<ImagenArticulo> imagenes;
     private Long idUnidadMedida;
+    private Long idSucursal;
 }
