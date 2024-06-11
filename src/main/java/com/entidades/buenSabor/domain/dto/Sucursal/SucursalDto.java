@@ -3,6 +3,7 @@ package com.entidades.buenSabor.domain.dto.Sucursal;
 import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.Categoria.CategoriaDto;
 import com.entidades.buenSabor.domain.dto.Domicilio.DomicilioDto;
+import com.entidades.buenSabor.domain.dto.Empleado.EmpleadoShortDto;
 import com.entidades.buenSabor.domain.dto.Empresa.EmpresaDto;
 import com.entidades.buenSabor.domain.dto.Promocion.PromocionDto;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,5 +30,6 @@ public class SucursalDto extends BaseDto {
     private DomicilioDto domicilio;
     private EmpresaDto empresa;
     private Set<PromocionDto> promociones;
+    private Set<EmpleadoShortDto> empleado;
 
 }

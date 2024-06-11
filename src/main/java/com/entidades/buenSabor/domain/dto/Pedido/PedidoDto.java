@@ -6,6 +6,7 @@ import com.entidades.buenSabor.domain.dto.Cliente.ClienteShortDto;
 import com.entidades.buenSabor.domain.dto.DetallePedido.DetallePedidoDto;
 import com.entidades.buenSabor.domain.dto.Domicilio.DomicilioDto;
 import com.entidades.buenSabor.domain.dto.Empleado.EmpleadoDto;
+import com.entidades.buenSabor.domain.dto.Empleado.EmpleadoShortDto;
 import com.entidades.buenSabor.domain.dto.Factura.FacturaDto;
 import com.entidades.buenSabor.domain.dto.Sucursal.SucursalDto;
 import com.entidades.buenSabor.domain.dto.Sucursal.SucursalShortDto;
@@ -39,4 +40,5 @@ public class PedidoDto extends BaseDto {
     private FacturaDto factura;
     private ClienteShortDto cliente;
     private Set<DetallePedidoDto> detallePedidos = new HashSet<>();
+    private EmpleadoShortDto empleado;
 }
