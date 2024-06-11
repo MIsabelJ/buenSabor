@@ -57,9 +57,6 @@ public class Sucursal extends  Base{
     @JsonIgnoreProperties("sucursales")
     private Set<Categoria> categorias = new HashSet<>();
 
-
-
-
     @OneToMany(mappedBy = "sucursal",cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
     @Builder.Default
     @JsonIgnoreProperties("sucursal")

@@ -1,11 +1,8 @@
 package com.entidades.buenSabor.domain.dto.Promocion;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
-import com.entidades.buenSabor.domain.dto.ImagenPromocion.ImagenPromocionDto;
 import com.entidades.buenSabor.domain.dto.PromocionDetalle.PromocionDetalleDto;
-import com.entidades.buenSabor.domain.dto.PromocionDetalle.PromocionDetallePostDto;
 import com.entidades.buenSabor.domain.dto.Sucursal.SucursalDto;
-import com.entidades.buenSabor.domain.dto.Sucursal.SucursalShortDto;
 import com.entidades.buenSabor.domain.entities.ImagenPromocion;
 import com.entidades.buenSabor.domain.enums.TipoPromocion;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,11 +15,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class PromocionDto extends BaseDto {
+public class PromocionShortDto extends BaseDto {
     private String denominacion;
     private LocalDate fechaDesde;
     private LocalDate fechaHasta;
@@ -35,5 +33,4 @@ public class PromocionDto extends BaseDto {
     private TipoPromocion tipoPromocion;
     private Set<PromocionDetalleDto> promocionDetalles;
     private List<ImagenPromocion> imagenes;
-    private Set<SucursalShortDto> sucursales;
 }

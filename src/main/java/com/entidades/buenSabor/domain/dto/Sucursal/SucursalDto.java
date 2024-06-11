@@ -6,6 +6,7 @@ import com.entidades.buenSabor.domain.dto.Domicilio.DomicilioDto;
 import com.entidades.buenSabor.domain.dto.Empleado.EmpleadoShortDto;
 import com.entidades.buenSabor.domain.dto.Empresa.EmpresaDto;
 import com.entidades.buenSabor.domain.dto.Promocion.PromocionDto;
+import com.entidades.buenSabor.domain.dto.Promocion.PromocionShortDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class SucursalDto extends BaseDto {
     private boolean esCasaMatriz;
     private DomicilioDto domicilio;
     private EmpresaDto empresa;
-    private Set<PromocionDto> promociones;
+    private Set<PromocionShortDto> promociones;
     private Set<EmpleadoShortDto> empleado;
 
 }

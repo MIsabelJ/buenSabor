@@ -1,5 +1,6 @@
 package com.entidades.buenSabor.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
@@ -18,5 +19,6 @@ public class PromocionDetalle extends Base{
     private int cantidad;
 
     @ManyToOne
+    @JsonIgnoreProperties("promocionDetalles")
     private Articulo articulo;
 }

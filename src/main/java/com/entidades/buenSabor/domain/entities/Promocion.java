@@ -55,7 +55,7 @@ public class Promocion  extends Base{
     private List<ImagenPromocion> imagenes = new ArrayList<>();
 
 
-    @ManyToMany (mappedBy = "promociones")
+    @ManyToMany (mappedBy = "promociones", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("promociones")
     private Set<Sucursal> sucursales = new HashSet<>();
 

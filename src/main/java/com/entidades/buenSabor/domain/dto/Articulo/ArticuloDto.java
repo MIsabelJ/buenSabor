@@ -5,6 +5,7 @@ import com.entidades.buenSabor.domain.dto.ArticuloManufacturado.ArticuloManufact
 import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.ImagenArticulo.ImagenArticuloDto;
 import com.entidades.buenSabor.domain.dto.Sucursal.SucursalDto;
+import com.entidades.buenSabor.domain.dto.Sucursal.SucursalShortDto;
 import com.entidades.buenSabor.domain.dto.UnidadMedida.UnidadMedidaDto;
 import com.entidades.buenSabor.domain.entities.ArticuloInsumo;
 import com.entidades.buenSabor.domain.entities.ArticuloManufacturado;
@@ -34,5 +35,5 @@ public class ArticuloDto extends BaseDto {
     private Double precioVenta;
     private List<ImagenArticulo> imagenes;
     private UnidadMedidaDto unidadMedida;
-    private SucursalDto sucursal;
+    private SucursalShortDto sucursal;
 }
