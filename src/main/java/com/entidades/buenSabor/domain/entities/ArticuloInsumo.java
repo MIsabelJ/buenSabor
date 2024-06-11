@@ -23,7 +23,7 @@ public class ArticuloInsumo extends Articulo{
     private Integer stockMinimo;
     private Boolean esParaElaborar;
     @ManyToOne
-    @JoinColumn(name = "articuloInsumo_id")
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
 }
