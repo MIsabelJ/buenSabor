@@ -1,80 +1,89 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.2.5'
-	id 'io.spring.dependency-management' version '1.1.4'
+    id 'java'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.entidades'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+    sourceCompatibility = '17'
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
-	testImplementation 'org.springframework.security:spring-security-test'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-	//AUTH0
-	//implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    //AUTH0
+    //implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
-	//H2 DATABASE
-	runtimeOnly 'com.h2database:h2'
+    //H2 DATABASE
+    runtimeOnly 'com.h2database:h2'
 
-	//MYSQL DATABASE
-	 runtimeOnly 'com.mysql:mysql-connector-j'
+    //MYSQL DATABASE
+    runtimeOnly 'com.mysql:mysql-connector-j'
 
-	//POSTGRESQL DATABASE
-	runtimeOnly 'org.postgresql:postgresql'
+    //POSTGRESQL DATABASE
+    runtimeOnly 'org.postgresql:postgresql'
 
-	//SWAGGER
-	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
+    //SWAGGER
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	//JSON
-	implementation 'org.json:json:20210307'
+    //JSON
+    implementation 'org.json:json:20210307'
 
-	//MAPSTRUCT
-	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    //MAPSTRUCT
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
 
-	//LOMBOK
-	annotationProcessor 'org.projectlombok:lombok', 'org.mapstruct:mapstruct-processor:1.5.5.Final'
-	compileOnly 'org.projectlombok:lombok'
+    //LOMBOK
+    annotationProcessor 'org.projectlombok:lombok', 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    compileOnly 'org.projectlombok:lombok'
 
-	//ENVERS
-	implementation 'org.hibernate.orm:hibernate-envers:6.4.4.Final'
+    //ENVERS
+    implementation 'org.hibernate.orm:hibernate-envers:6.4.4.Final'
 
-	//CLOUDINARY
-	// https://mvnrepository.com/artifact/com.cloudinary/cloudinary
-	implementation 'com.cloudinary:cloudinary-http44:1.36.0'
-	implementation 'com.cloudinary:cloudinary-taglib:1.36.0'
-	implementation 'io.github.cdimascio:dotenv-java:2.2.4'
+    //CLOUDINARY
+    // https://mvnrepository.com/artifact/com.cloudinary/cloudinary
+    implementation 'com.cloudinary:cloudinary-http44:1.36.0'
+    implementation 'com.cloudinary:cloudinary-taglib:1.36.0'
+    implementation 'io.github.cdimascio:dotenv-java:2.2.4'
+
+    //MERCADO PAGO
+    implementation 'com.mercadopago:sdk-java:2.1.24'
+
+    //APACHE POI
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
+
+    //IText
+    implementation group: 'com.lowagie', name: 'itext', version: '2.1.7'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 
 tasks.jar {
-	enabled = true
+    enabled = true
 }
 
 bootJar {
-	enabled=true
+    enabled = true
 }
 

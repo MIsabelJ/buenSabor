@@ -35,5 +35,5 @@ public class ArticuloDto extends BaseDto {
     private Double precioVenta;
     private List<ImagenArticulo> imagenes;
     private UnidadMedidaDto unidadMedida;
-    private SucursalShortDto sucursal;
+    private SucursalShortDto sucursal;  
 }
