@@ -45,9 +45,9 @@ public class SecurityConfiguration {
                 .cors(withDefaults()) //por defecto spring va a buscar un bean con el nombre "corsConfigurationSource".
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/api/public/**").permitAll()
-                                .requestMatchers("/api/admin/**").hasAuthority("administrador")
-                                .requestMatchers("/api/client/**").hasAuthority("cliente")
+                                .requestMatchers("/**").permitAll()
+                                .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                                .requestMatchers("/cajero/**").hasAuthority("CAJERO")
                                 .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->
@@ -64,16 +64,32 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(corsAllowedOrigins));
+
+        // Configuración de los orígenes permitidos (allowed origins)
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+
+        // Métodos HTTP permitidos
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"));
+
+        // Permitir el envío de credenciales (cookies, encabezados de autenticación)
         configuration.setAllowCredentials(true);
+
+        // Encabezados permitidos en las peticiones
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+
+        // Encabezados expuestos en la respuesta
         configuration.setExposedHeaders(Arrays.asList("X-Get-Header"));
+
+        // Tiempo máximo en segundos que el navegador puede cachear la configuración CORS
         configuration.setMaxAge(3600L);
+
+        // Configurar la fuente de configuración basada en URL
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
+
 
     @Bean
     JwtDecoder jwtDecoder() {
@@ -91,7 +107,7 @@ public class SecurityConfiguration {
     @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
-        converter.setAuthoritiesClaimName("https://dashboard_buensabor_api/roles");
+        converter.setAuthoritiesClaimName("https://buensaborapi/roles");
         converter.setAuthorityPrefix("");
 
         JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
