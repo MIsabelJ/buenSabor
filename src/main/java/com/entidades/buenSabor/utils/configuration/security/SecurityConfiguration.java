@@ -1,4 +1,4 @@
-/*package com.entidades.buenSabor.utils.configuration.security;
+package com.entidades.buenSabor.utils.configuration.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -45,7 +45,7 @@ public class SecurityConfiguration {
                 .cors(withDefaults()) //por defecto spring va a buscar un bean con el nombre "corsConfigurationSource".
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/api/public").permitAll()
+                                .requestMatchers("/api/public/**").permitAll()
                                 .requestMatchers("/api/admin/**").hasAuthority("administrador")
                                 .requestMatchers("/api/client/**").hasAuthority("cliente")
                                 .anyRequest().authenticated()
@@ -104,5 +104,5 @@ public class SecurityConfiguration {
         return (web) -> web.debug(webSecurityDebug);
     }
 
-}*/
+}
 
