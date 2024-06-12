@@ -28,8 +28,8 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-    //AUTH0
-    //implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	//AUTH0
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
     //H2 DATABASE
     runtimeOnly 'com.h2database:h2'
