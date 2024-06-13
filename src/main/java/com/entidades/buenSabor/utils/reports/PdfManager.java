@@ -76,9 +76,15 @@ public class PdfManager {
             PdfWriter.getInstance(document, outputStream);
             document.open();
 
-            Paragraph paragraph = new Paragraph("Factura n° " + pedido.getFactura().getId().toString(), titulo);
+            Paragraph paragraph =
+                    new Paragraph(pedido.getSucursal().getEmpresa().getNombre() + " - " + pedido.getSucursal().getNombre(), titulo);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
+
+            Paragraph subtitle =
+                    new Paragraph("Factura n° " + pedido.getFactura().getId().toString(), redFont);
+            subtitle.setAlignment(Element.ALIGN_CENTER);
+            document.add(subtitle);
 
             addEmptyLine(document, 2);
 
@@ -103,7 +109,7 @@ public class PdfManager {
 
             celdaIzq = new PdfPCell(new Phrase("Total de la venta:", textoBold));
             celdaIzq.setBorder(Rectangle.NO_BORDER);
-            celdaDer = new PdfPCell(new Phrase(pedido.getFactura().getTotalVenta().toString(), texto));
+            celdaDer = new PdfPCell(new Phrase("$" + pedido.getFactura().getTotalVenta().toString(), texto));
             celdaDer.setBorder(Rectangle.NO_BORDER);
             table.addCell(celdaIzq);
             table.addCell(celdaDer);

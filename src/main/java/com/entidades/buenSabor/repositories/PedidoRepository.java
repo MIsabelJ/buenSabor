@@ -13,7 +13,7 @@ public interface PedidoRepository extends BaseRepository<Pedido, Long> {
     @Query(nativeQuery = true, value = "SELECT fecha_pedido AS Fecha, id as 'Numero Pedido', total AS 'Total Venta', " +
             "CASE forma_pago WHEN 0 THEN 'EFECTIVO' WHEN 1 THEN 'MERCADO PAGO' END AS 'Forma de Pago' FROM Pedido p " +
             "WHERE fecha_pedido = :dia ORDER BY id")
-    List<Pedido> ingresosDiarios(@Param("dia") LocalDate dia);
+    List<Object[]> ingresosDiarios(@Param("dia") LocalDate dia);
 
     @Query(nativeQuery = true, value = "SELECT fecha_pedido AS Fecha, SUM(total) AS Recaudacion FROM Pedido p WHERE " +
             "EXTRACT(MONTH FROM fecha_pedido) = :mes GROUP BY fecha_pedido ORDER BY fecha_pedido")

@@ -11,6 +11,7 @@ import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import com.entidades.buenSabor.repositories.PedidoRepository;
 import com.entidades.buenSabor.utils.reports.ExcelManager;
 import com.entidades.buenSabor.utils.reports.PdfManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,8 +36,11 @@ import java.util.List;
 public class PedidoController extends BaseControllerImp<Pedido, PedidoDto, PedidoPostDto, PedidoPostDto, Long,
         PedidoFacadeImp> {
 
+    @Autowired
     private ExcelManager excelManager;
+    @Autowired
     private PdfManager pdfManager;
+    @Autowired
     private PedidoRepository pedidoRepository;
     private final MercadoPagoController mercadoPagoController;
 
