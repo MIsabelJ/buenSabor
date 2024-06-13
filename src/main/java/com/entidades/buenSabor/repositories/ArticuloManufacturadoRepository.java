@@ -9,7 +9,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface ArticuloManufacturadoRepository extends BaseRepository<ArticuloManufacturado,Long> {
+public interface ArticuloManufacturadoRepository extends BaseRepository<ArticuloManufacturado, Long> {
     @Query(nativeQuery = true, value = "CALL comidas_mas_pedidas(:fechaDesde, :fechaHasta)")
-    List<ArticuloManufacturado> obtenerComidasMasPedidas(@Param("fechaDesde") LocalDate fechaDesde, @Param("fechaHasta") LocalDate fechaHasta);
+    List<ArticuloManufacturado> obtenerComidasMasPedidas(@Param("fechaDesde") LocalDate fechaDesde, @Param(
+            "fechaHasta") LocalDate fechaHasta);
 }
