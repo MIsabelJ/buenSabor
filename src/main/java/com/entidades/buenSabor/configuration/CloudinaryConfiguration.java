@@ -1,4 +1,4 @@
-package com.entidades.buenSabor.utils.configuration;
+package com.entidades.buenSabor.configuration;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;

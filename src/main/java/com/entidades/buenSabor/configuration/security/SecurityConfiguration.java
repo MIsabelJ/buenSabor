@@ -1,8 +1,9 @@
-package com.entidades.buenSabor.utils.configuration.security;
+package com.entidades.buenSabor.configuration.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -45,9 +46,15 @@ public class SecurityConfiguration {
                 .cors(withDefaults()) //por defecto spring va a buscar un bean con el nombre "corsConfigurationSource".
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
+                                //TODOS LOS ENDPOINTS CON SU NIVEL DE ACCESO
+                                /*.requestMatchers(HttpMethod.GET, "/empresa/**").hasAnyAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/empresa").hasAnyAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/sucursal/**").hasAnyAuthority("ADMIN", "ADMIN_NEGOCIO")
+                                .requestMatchers(HttpMethod.POST, "/sucursal/**").hasAnyAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/sucursal").hasAnyAuthority("ADMIN", "ADMIN_NEGOCIO")
+                                .requestMatchers(HttpMethod.DELETE, "/sucursal").hasAnyAuthority("ADMIN")
+                                */
                                 .requestMatchers("/**").permitAll()
-                                .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                                .requestMatchers("/cajero/**").hasAuthority("CAJERO")
                                 .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->

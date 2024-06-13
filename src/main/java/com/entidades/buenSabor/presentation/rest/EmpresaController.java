@@ -13,6 +13,7 @@ import com.entidades.buenSabor.domain.entities.Empresa;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class EmpresaController extends BaseControllerImp<Empresa, EmpresaDto, Em
         super(facade);
     }
 
+    @PreAuthorize("ADMIN")
     @GetMapping("/sucursales/{idEmpresa}")
     public ResponseEntity<EmpresaLargeDto> getEmpresaLarge(@PathVariable Long idEmpresa){
         return ResponseEntity.ok(facade.getEmpresaLarge(idEmpresa));
