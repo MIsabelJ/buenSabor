@@ -47,15 +47,16 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 //TODOS LOS ENDPOINTS CON SU NIVEL DE ACCESO
-                                /*.requestMatchers(HttpMethod.GET, "/empresa/**").hasAnyAuthority("ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/empresa").hasAnyAuthority("ADMIN")
+                                .requestMatchers("/**").hasAuthority("ADMIN")
+                                //.requestMatchers("/{idEmpresa}/sucursales").hasAuthority("ADMIN")
+                                /*.requestMatchers(HttpMethod.POST, "/empresa").hasAnyAuthority("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/sucursal/**").hasAnyAuthority("ADMIN", "ADMIN_NEGOCIO")
                                 .requestMatchers(HttpMethod.POST, "/sucursal/**").hasAnyAuthority("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/sucursal").hasAnyAuthority("ADMIN", "ADMIN_NEGOCIO")
                                 .requestMatchers(HttpMethod.DELETE, "/sucursal").hasAnyAuthority("ADMIN")
                                 */
-                                .requestMatchers("/**").permitAll()
-                                .anyRequest().authenticated()
+                                .requestMatchers("/**").authenticated()
+                                .anyRequest().hasAuthority("ADMIN")
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->
                         oauth2ResourceServer
