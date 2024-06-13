@@ -10,6 +10,7 @@ import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import com.entidades.buenSabor.repositories.ArticuloManufacturadoRepository;
 import com.entidades.buenSabor.repositories.PedidoRepository;
 import com.entidades.buenSabor.utils.reports.ExcelManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,8 +32,11 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
         ArticuloManufacturadoDto, ArticuloManufacturadoPostDto, ArticuloManufacturadoPostDto, Long,
         ArticuloManufacturadoFacadeImp> {
 
+    @Autowired
     private ExcelManager excelManager;
+    @Autowired
     private ArticuloManufacturadoRepository articuloManufacturadoRepository;
+    @Autowired
     private PedidoRepository pedidoRepository;
 
     public ArticuloManufacturadoController(ArticuloManufacturadoFacadeImp facade) {
@@ -47,22 +51,12 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
         List<List<Object>> data = new ArrayList<>();
         data.add(Arrays.asList("Cantidad Vendida", "Comida"));
 
-        List<ArticuloManufacturado> resultados = articuloManufacturadoRepository.obtenerComidasMasPedidas(fechaDesde,
+        List<Object[]> resultados = articuloManufacturadoRepository.obtenerComidasMasPedidas(fechaDesde,
                 fechaHasta);
 
-        for (ArticuloManufacturado manufacturado : resultados) {
-            String comida = manufacturado.getDenominacion();
-
-            int cantidadVendida = 0;
-            for (Pedido pedido : pedidoRepository.findAll()) {
-                if (pedido.getFechaPedido().isAfter(fechaDesde.minusDays(1)) && pedido.getFechaPedido().isBefore(fechaHasta.plusDays(1))) {
-                    for (DetallePedido detallePedido : pedido.getDetallePedidos()) {
-                        if (detallePedido.getArticulo().equals(manufacturado)) {
-                            cantidadVendida += detallePedido.getCantidad();
-                        }
-                    }
-                }
-            }
+        for (Object[] manufacturado : resultados) {
+            String comida = (String) manufacturado[0];
+            Long cantidadVendida = ((Number) manufacturado[1]).longValue();
 
             data.add(Arrays.asList(cantidadVendida, comida));
         }
@@ -72,8 +66,9 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
 
     // EXCEL
     @GetMapping("/downloadExcelMasVendidos")
-    public ResponseEntity<byte[]> downloadExcelMasVendidos(@RequestParam LocalDate fechaDesde,
-                                                           @RequestParam LocalDate fechaHasta) {
+    public ResponseEntity<byte[]> downloadExcelMasVendidos(@RequestParam @DateTimeFormat(iso =
+            DateTimeFormat.ISO.DATE) LocalDate fechaDesde, @RequestParam @DateTimeFormat(iso =
+            DateTimeFormat.ISO.DATE) LocalDate fechaHasta) {
         try {
             ByteArrayOutputStream outputStream = excelManager.excelMasVendidos(fechaDesde, fechaHasta);
 

@@ -59,29 +59,20 @@ public class ExcelManager {
         // Crear fila de encabezados
         SXSSFRow filaEncabezados = hoja.createRow(0);
         int columna = 0;
-        crearCeldaEncabezado(filaEncabezados, columna++, "Sucursal", styleEncabezado);
-        crearCeldaEncabezado(filaEncabezados, columna++, "Categoria", styleEncabezado);
-        crearCeldaEncabezado(filaEncabezados, columna++, "Articulo", styleEncabezado);
+        crearCeldaEncabezado(filaEncabezados, columna++, "Comida", styleEncabezado);
         crearCeldaEncabezado(filaEncabezados, columna++, "Cantidad Vendida", styleEncabezado);
+        crearCeldaEncabezado(filaEncabezados, columna++, "Categoria", styleEncabezado);
+        crearCeldaEncabezado(filaEncabezados, columna++, "Sucursal", styleEncabezado);
 
         int filaActual = 1;
-        List<ArticuloManufacturado> articulo = articuloManufacturadoRepository.obtenerComidasMasPedidas(fechaDesde, fechaHasta);
-        for (ArticuloManufacturado manufacturado : articulo) {
-            SXSSFRow fila = hoja.createRow(filaActual++);
+        List<Object[]> resultados = articuloManufacturadoRepository.obtenerComidasMasPedidas(fechaDesde, fechaHasta);
+        for (Object[] fila : resultados) {
+            SXSSFRow filaExcel = hoja.createRow(filaActual++);
             int columnaFila = 0;
-            crearCelda(fila, columnaFila++, manufacturado.getSucursal());
-            crearCelda(fila, columnaFila++, manufacturado.getCategoria().getDenominacion());
-            crearCelda(fila, columnaFila++, manufacturado.getDenominacion());
-
-            int cantidadTotal = 0;
-            for (Pedido pedido : pedidoRepository.findAll()) {
-                for (DetallePedido detallePedido : pedido.getDetallePedidos()) {
-                    if (detallePedido.getArticulo().equals(manufacturado)) {
-                        cantidadTotal += detallePedido.getCantidad();
-                    }
-                }
-            }
-            crearCelda(fila, columnaFila++, cantidadTotal);
+            crearCelda(filaExcel, columnaFila++, fila[0].toString()); // Comida
+            crearCelda(filaExcel, columnaFila++, fila[1].toString()); // Cantidad Vendida
+            crearCelda(filaExcel, columnaFila++, fila[2].toString()); // Categoria
+            crearCelda(filaExcel, columnaFila++, fila[3].toString()); // Sucursal
         }
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -109,15 +100,17 @@ public class ExcelManager {
         crearCeldaEncabezado(filaEncabezados, columna++, "Total Venta", styleEncabezado);
         crearCeldaEncabezado(filaEncabezados, columna++, "Forma de Pago", styleEncabezado);
 
+
         int filaActual = 1;
-        List<Pedido> pedidos = pedidoRepository.ingresosDiarios(dia);
-        for (Pedido pedido : pedidos) {
+        List<Object[]> resultado = pedidoRepository.ingresosDiarios(dia);
+        for (Object[] pedido : resultado) {
+
             SXSSFRow fila = hoja.createRow(filaActual++);
             int columnaFila = 0;
-            crearCelda(fila, columnaFila++, pedido.getFechaPedido());
-            crearCelda(fila, columnaFila++, pedido.getId());
-            crearCelda(fila, columnaFila++, pedido.getTotal());
-            crearCelda(fila, columnaFila++, pedido.getFormaPago());
+            crearCelda(fila, columnaFila++, pedido[0].toString());
+            crearCelda(fila, columnaFila++, pedido[1].toString());
+            crearCelda(fila, columnaFila++, pedido[2].toString());
+            crearCelda(fila, columnaFila++, pedido[3]);
         }
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -148,8 +141,8 @@ public class ExcelManager {
         for (Object[] fila : resultados) {
             SXSSFRow filaExcel = hoja.createRow(filaActual++);
             int columnaFila = 0;
-            crearCelda(filaExcel, columnaFila++, fila[0]);
-            crearCelda(filaExcel, columnaFila++, fila[1]);
+            crearCelda(filaExcel, columnaFila++, fila[0].toString());
+            crearCelda(filaExcel, columnaFila++, fila[1].toString());
         }
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -182,10 +175,10 @@ public class ExcelManager {
         for (Object[] fila : resultados) {
             SXSSFRow filaExcel = hoja.createRow(filaActual++);
             int columnaFila = 0;
-            crearCelda(filaExcel, columnaFila++, fila[0]);
-            crearCelda(filaExcel, columnaFila++, fila[1]);
-            crearCelda(filaExcel, columnaFila++, fila[2]);
-            crearCelda(filaExcel, columnaFila++, fila[3]);
+            crearCelda(filaExcel, columnaFila++, fila[0].toString());
+            crearCelda(filaExcel, columnaFila++, fila[1].toString());
+            crearCelda(filaExcel, columnaFila++, fila[2].toString());
+            crearCelda(filaExcel, columnaFila++, fila[3].toString());
         }
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -218,9 +211,9 @@ public class ExcelManager {
         for (Object[] fila : resultados) {
             SXSSFRow filaExcel = hoja.createRow(filaActual++);
             int columnaFila = 0;
-            crearCelda(filaExcel, columnaFila++, fila[0]);
+            crearCelda(filaExcel, columnaFila++, fila[0].toString());
             crearCelda(filaExcel, columnaFila++, fila[1]);
-            crearCelda(filaExcel, columnaFila++, fila[2]);
+            crearCelda(filaExcel, columnaFila++, fila[2].toString());
             crearCelda(filaExcel, columnaFila++, fila[3]);
         }
 
