@@ -31,6 +31,9 @@ dependencies {
 	//AUTH0
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
+    //MERCADO PAGO
+    implementation 'com.mercadopago:sdk-java:2.1.24'
+
     //H2 DATABASE
     runtimeOnly 'com.h2database:h2'
 

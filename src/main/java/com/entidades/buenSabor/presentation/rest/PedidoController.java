@@ -6,6 +6,7 @@ import com.entidades.buenSabor.domain.dto.Pedido.PedidoPostDto;
 import com.entidades.buenSabor.domain.entities.ArticuloManufacturado;
 import com.entidades.buenSabor.domain.entities.DetallePedido;
 import com.entidades.buenSabor.domain.entities.Pedido;
+import com.entidades.buenSabor.domain.entities.PreferenceMp;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import com.entidades.buenSabor.repositories.PedidoRepository;
 import com.entidades.buenSabor.utils.reports.ExcelManager;
@@ -37,9 +38,12 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto, Pedid
     private ExcelManager excelManager;
     private PdfManager pdfManager;
     private PedidoRepository pedidoRepository;
+    private final MercadoPagoController mercadoPagoController;
 
-    public PedidoController(PedidoFacadeImp facade) {
+    public PedidoController(PedidoFacadeImp facade, MercadoPagoController mercadoPagoController) {
+
         super(facade);
+        this.mercadoPagoController = mercadoPagoController;
     }
 
     // CHARTS
@@ -63,6 +67,13 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto, Pedid
         }
 
         return data;
+    }
+
+    //MERCADO PAGO
+    @PostMapping("/create_preference_mp")
+    public PreferenceMp crearPreferenceMp(@RequestBody PedidoPostDto pedido){
+        PreferenceMp preferenceMp = mercadoPagoController.getPreferenciaIdMercadoPago(pedido);
+        return preferenceMp;
     }
 
     @GetMapping("/dataGanancias")
