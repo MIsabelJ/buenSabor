@@ -1,5 +1,7 @@
 package com.entidades.buenSabor.repositories;
 
+import com.entidades.buenSabor.domain.entities.Articulo;
+import com.entidades.buenSabor.domain.entities.ArticuloInsumo;
 import com.entidades.buenSabor.domain.entities.ArticuloManufacturado;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +19,7 @@ public interface ArticuloManufacturadoRepository extends BaseRepository<Articulo
             ".fecha_pedido BETWEEN :fechaDesde AND :fechaHasta GROUP BY am.id ORDER BY SUM(dp.cantidad) DESC LIMIT 15;")
     List<Object[]> obtenerComidasMasPedidas(@Param("fechaDesde") LocalDate fechaDesde, @Param(
             "fechaHasta") LocalDate fechaHasta);
+
+    @Query("SELECT a FROM ArticuloManufacturado a WHERE a.precioVenta != 0")
+    List<ArticuloManufacturado> findAllVenta();
 }

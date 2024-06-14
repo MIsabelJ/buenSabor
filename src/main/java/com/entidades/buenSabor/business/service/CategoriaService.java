@@ -13,6 +13,6 @@ public interface CategoriaService extends BaseService<Categoria, Long> {
 
     public List<ArticuloInsumo> getInsumoByCategoriaId(Long idCategoria);
     public List<ArticuloManufacturado> getManufacturadoByCategoriaId(Long idCategoria);
-
+    public List<Categoria> getAllCategoriasVenta();
     public List<Articulo> getArticulosByCategoriaId(Long idCategoria);
 }

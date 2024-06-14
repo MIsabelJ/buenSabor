@@ -66,4 +66,9 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria, Long> impleme
         return articulos;
     }
 
+    @Override
+    public List<Categoria> getAllCategoriasVenta(){
+        return categoriaRepository.findCategoriasParaVender();
+    }
+
 }

@@ -6,6 +6,7 @@ import com.entidades.buenSabor.domain.dto.ArticuloInsumo.ArticuloInsumoDto;
 import com.entidades.buenSabor.domain.dto.ArticuloManufacturado.ArticuloManufacturadoDto;
 import com.entidades.buenSabor.domain.dto.Categoria.CategoriaDto;
 import com.entidades.buenSabor.domain.dto.Categoria.CategoriaPostDto;
+import com.entidades.buenSabor.domain.entities.Categoria;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface CategoriaFacade extends BaseFacade<CategoriaDto, CategoriaPostD
     public List<ArticuloInsumoDto> getInsumoByCategoriaId(Long idCategoria);
     public List<ArticuloManufacturadoDto> getManufacturadoByCategoriaId(Long idCategoria);
     public List<ArticuloDto> getArticulosByCategoriaId(Long idCategoria);
+    public List<CategoriaDto> getCategoriasVenta();
+
 }

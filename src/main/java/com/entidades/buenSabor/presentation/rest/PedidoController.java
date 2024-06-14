@@ -45,7 +45,6 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto, Pedid
     private final MercadoPagoController mercadoPagoController;
 
     public PedidoController(PedidoFacadeImp facade, MercadoPagoController mercadoPagoController) {
-
         super(facade);
         this.mercadoPagoController = mercadoPagoController;
     }

@@ -72,4 +72,8 @@ public class CategoriaFacadeImp extends BaseFacadeImp<Categoria, CategoriaDto, C
                 .collect(Collectors.toList());
     }
 
+    public List<CategoriaDto> getCategoriasVenta(){
+        return baseMapper.toDTOsList(categoriaService.getAllCategoriasVenta());
+    }
+
 }

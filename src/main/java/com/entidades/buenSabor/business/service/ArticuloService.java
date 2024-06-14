@@ -5,8 +5,12 @@ import com.entidades.buenSabor.domain.entities.Articulo;
 import org.mapstruct.Named;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 public interface ArticuloService extends BaseService<Articulo, Long> {
     @Named("getArticuloById")
     public Articulo getArticuloById(Long id);
+
+    public List<Articulo> getAllArticulosVenta();
 }

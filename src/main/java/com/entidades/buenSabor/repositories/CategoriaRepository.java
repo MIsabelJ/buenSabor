@@ -17,4 +17,7 @@ public interface CategoriaRepository extends BaseRepository<Categoria,Long>{
 
     @Query("SELECT a FROM ArticuloManufacturado a WHERE a.categoria.id =:idCategoria")
     List<ArticuloManufacturado> findManufacturadosByCategoriaId(@Param("idCategoria") Long idCategoria);
+
+    @Query("SELECT c FROM Categoria c WHERE c.esParaElaborar = false ")
+    List<Categoria> findCategoriasParaVender();
 }

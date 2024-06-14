@@ -49,4 +49,31 @@ public class ArticuloFacadeImp extends BaseFacadeImp<Articulo, ArticuloDto, Arti
                 })
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public ArticuloDto instanceArticulo(Articulo articulo){
+        if(articulo instanceof ArticuloManufacturado){
+            return articuloManufacturadoMapper.toDTO((ArticuloManufacturado) articulo);
+        }else if(articulo instanceof ArticuloInsumo){
+            return articuloInsumoMapper.toDTO((ArticuloInsumo) articulo);
+        }
+        return null;
+    }
+
+    @Override
+    public List<ArticuloDto> getAllArticulosVenta(){
+        List<Articulo> articulos = articuloService.getAllArticulosVenta();
+
+        return articulos.stream()
+                .map(articulo -> {
+                    if (articulo instanceof ArticuloInsumo) {
+                        return articuloInsumoMapper.toDTO((ArticuloInsumo) articulo);
+                    } else if (articulo instanceof ArticuloManufacturado) {
+                        return articuloManufacturadoMapper.toDTO((ArticuloManufacturado) articulo);
+                    } else {
+                        throw new RuntimeException("Tipo de artículo no soportado: " + articulo.getClass().getName());
+                    }
+                })
+                .collect(Collectors.toList());
+    }
 }

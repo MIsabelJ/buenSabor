@@ -26,7 +26,8 @@ public class ArticuloServiceImp extends BaseServiceImp<Articulo, Long> implement
     private ArticuloInsumoRepository articuloInsumoRepository;
     @Autowired
     private ArticuloManufacturadoRepository articuloManufacturadoRepository;
-
+    @Autowired
+    private ArticuloRepository articuloRepository;
     public Articulo getArticuloById(Long id) {
         Optional<ArticuloInsumo> insumoOpt = articuloInsumoRepository.findById(id);
         if (insumoOpt.isPresent()) {
@@ -45,6 +46,18 @@ public class ArticuloServiceImp extends BaseServiceImp<Articulo, Long> implement
     public List<Articulo> getAll(){
         List<ArticuloInsumo> insumos = articuloInsumoRepository.findAll();
         List<ArticuloManufacturado> manufacturados = articuloManufacturadoRepository.findAll();
+
+        List<Articulo> articulos = new ArrayList<>();
+        articulos.addAll(insumos);
+        articulos.addAll(manufacturados);
+
+        return articulos;
+    }
+
+    @Override
+    public List<Articulo> getAllArticulosVenta(){
+        List<ArticuloInsumo> insumos = articuloInsumoRepository.findAllVenta();
+        List<ArticuloManufacturado> manufacturados = articuloManufacturadoRepository.findAllVenta();
 
         List<Articulo> articulos = new ArrayList<>();
         articulos.addAll(insumos);
