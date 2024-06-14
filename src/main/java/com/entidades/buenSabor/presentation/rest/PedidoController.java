@@ -42,12 +42,20 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto, Pedid
     private PdfManager pdfManager;
     @Autowired
     private PedidoRepository pedidoRepository;
+
     private final MercadoPagoController mercadoPagoController;
 
     public PedidoController(PedidoFacadeImp facade, MercadoPagoController mercadoPagoController) {
 
         super(facade);
         this.mercadoPagoController = mercadoPagoController;
+    }
+
+    //MERCADO PAGO
+    @PostMapping("/create_preference_mp")
+    public PreferenceMp crearPreferenceMp(@RequestBody PedidoPostDto pedido){
+        PreferenceMp preferenceMp = mercadoPagoController.getPreferenciaIdMercadoPago(pedido);
+        return preferenceMp;
     }
 
     // CHARTS
@@ -60,24 +68,17 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto, Pedid
         List<Object[]> resultados = pedidoRepository.ingresosMensuales(mes);
 
         for (Object[] resultado : resultados) {
-            Date fecha = (Date) resultado[0];
-            LocalDate localDate = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            BigDecimal recaudacion = (BigDecimal) resultado[1];
+            // Asumimos que el primer elemento es de tipo java.sql.Date
+            java.sql.Date sqlDate = (java.sql.Date) resultado[0];
+            LocalDate fecha = sqlDate.toLocalDate(); // Convertimos java.sql.Date a LocalDate
+            String fechaFormateada = fecha.format(DateTimeFormatter.ISO_LOCAL_DATE);
 
-            String fechaFormateada = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
-            Double recaudacionDouble = recaudacion.doubleValue();
+            Double recaudacion = (Double) resultado[1];
 
-            data.add(Arrays.asList(fechaFormateada, recaudacionDouble));
+            data.add(Arrays.asList(fechaFormateada, recaudacion));
         }
 
         return data;
-    }
-
-    //MERCADO PAGO
-    @PostMapping("/create_preference_mp")
-    public PreferenceMp crearPreferenceMp(@RequestBody PedidoPostDto pedido){
-        PreferenceMp preferenceMp = mercadoPagoController.getPreferenciaIdMercadoPago(pedido);
-        return preferenceMp;
     }
 
     @GetMapping("/dataGanancias")
@@ -91,12 +92,14 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto, Pedid
         List<Object[]> resultados = pedidoRepository.ganancias(fechaDesde, fechaHasta);
 
         for (Object[] resultado : resultados) {
-            LocalDate fecha = ((Date) resultado[0]).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            // Asumimos que el primer elemento es de tipo java.sql.Date
+            java.sql.Date sqlDate = (java.sql.Date) resultado[0];
+            LocalDate fecha = sqlDate.toLocalDate(); // Convertimos java.sql.Date a LocalDate
             String fechaFormateada = fecha.format(DateTimeFormatter.ISO_LOCAL_DATE);
 
-            BigDecimal ingresos = (BigDecimal) resultado[1];
-            BigDecimal costos = (BigDecimal) resultado[2];
-            BigDecimal ganancias = (BigDecimal) resultado[3];
+            Double ingresos = (Double) resultado[1];
+            Double costos = (Double) resultado[2];
+            Double ganancias = (Double) resultado[3];
 
             data.add(Arrays.asList(
                     fechaFormateada,
