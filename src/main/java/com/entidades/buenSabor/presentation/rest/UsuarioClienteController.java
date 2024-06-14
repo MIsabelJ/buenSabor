@@ -27,4 +27,18 @@ public class UsuarioClienteController {
     public ResponseEntity<List<UsuarioCliente>> getAll() {
         return ResponseEntity.ok().body(usuarioClienteService.getAll());
     }
+
+    @GetMapping("/login/{username}-{password}")
+    public UsuarioCliente login(@PathVariable String username, @PathVariable String password) {
+        UsuarioCliente usuarioCliente = new UsuarioCliente();
+        usuarioCliente.setUserName(username);
+        usuarioCliente.setPassword(password);
+
+        return usuarioClienteService.compareUsuarios(usuarioCliente);
+    }
+
+    @GetMapping("/{id}")
+    public UsuarioCliente getByIdController(@PathVariable Long id) {
+        return usuarioClienteService.getById(id);
+    }
 }

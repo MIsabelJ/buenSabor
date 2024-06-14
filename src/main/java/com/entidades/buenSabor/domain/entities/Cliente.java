@@ -27,7 +27,7 @@ public class Cliente extends Base{
     private String telefono;
     private String email;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private UsuarioCliente usuario;
 
     @OneToOne
