@@ -4,6 +4,7 @@ import com.entidades.buenSabor.domain.dto.Domicilio.DomicilioDto;
 import com.entidades.buenSabor.domain.dto.Domicilio.DomicilioPostDto;
 import com.entidades.buenSabor.domain.dto.Pedido.PedidoDto;
 import com.entidades.buenSabor.domain.dto.Pedido.PedidoPostDto;
+import com.entidades.buenSabor.domain.dto.UsuarioCliente.UsuarioClientePostDto;
 import com.entidades.buenSabor.domain.entities.ImagenCliente;
 import com.entidades.buenSabor.domain.entities.UsuarioCliente;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class ClientePostDto {
     private String telefono;
     private String email;
 
-    private Long idUsuario;
+    private UsuarioClientePostDto usuarioCliente;
 
     private ImagenCliente imagenCliente;
     private Set<DomicilioPostDto> domicilios;

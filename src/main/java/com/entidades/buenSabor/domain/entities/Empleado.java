@@ -32,4 +32,7 @@ public class Empleado extends Base{
     @JoinColumn(name = "sucursal_id")
     @JsonIgnoreProperties("empleados")
     private Sucursal sucursal;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private UsuarioEmpleado usuarioEmpleado;
 }

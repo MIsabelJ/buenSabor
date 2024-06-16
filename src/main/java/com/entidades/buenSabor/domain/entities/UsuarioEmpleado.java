@@ -14,6 +14,7 @@ import org.hibernate.envers.Audited;
 @SuperBuilder
 @Audited
 public class UsuarioEmpleado extends Base{
-    private String auth0Id;
+    private String email;
     private String userName;
+    private String password;
 }

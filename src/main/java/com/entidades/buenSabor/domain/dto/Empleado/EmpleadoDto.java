@@ -7,6 +7,7 @@ import com.entidades.buenSabor.domain.dto.Sucursal.SucursalDto;
 import com.entidades.buenSabor.domain.dto.Sucursal.SucursalShortDto;
 import com.entidades.buenSabor.domain.entities.ImagenArticulo;
 import com.entidades.buenSabor.domain.entities.Pedido;
+import com.entidades.buenSabor.domain.entities.UsuarioEmpleado;
 import com.entidades.buenSabor.domain.enums.Rol;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,4 +25,5 @@ public class EmpleadoDto extends BaseDto {
     private Rol tipoEmpleado;
     private Set<PedidoShortDto> pedidos;
     private SucursalShortDto sucursal;
+    private UsuarioEmpleado usuarioEmpleado;
 }

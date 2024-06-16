@@ -21,7 +21,7 @@ public class ClienteShortDto extends BaseDto {
     private String telefono;
     private String email;
 
-    private UsuarioCliente usuario;
+    private UsuarioCliente usuarioCliente;
 
     private ImagenCliente imagenCliente;
     private Set<DomicilioDto> domicilios;

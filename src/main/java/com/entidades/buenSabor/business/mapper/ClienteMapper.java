@@ -8,7 +8,7 @@ import com.entidades.buenSabor.domain.entities.Cliente;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {DomicilioMapper.class, PedidoMapper.class})
+@Mapper(componentModel = "spring", uses = {UsuarioClienteMapper.class,DomicilioMapper.class, PedidoMapper.class})
 public interface ClienteMapper extends BaseMapper<Cliente, ClienteDto, ClientePostDto, ClientePostDto>{
 
     public Cliente toEntityCreate(ClientePostDto source);

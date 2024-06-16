@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-@Mapper(componentModel = "spring", uses = {SucursalService.class, PedidoMapper.class})
+@Mapper(componentModel = "spring", uses = {UsuarioEmpleadoMapper.class,SucursalService.class, PedidoMapper.class})
 public interface EmpleadoMapper extends BaseMapper<Empleado, EmpleadoDto, EmpleadoPostDto, EmpleadoPostDto>{
 
     @Mapping(target = "sucursal", source = "idSucursal", qualifiedByName = "getById")
