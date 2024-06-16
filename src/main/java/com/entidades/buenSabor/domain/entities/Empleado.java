@@ -19,6 +19,9 @@ import java.util.Set;
 @Audited
 public class Empleado extends Base{
 
+
+    private String nombre;
+    private String apellido;
     private Rol tipoEmpleado;
 
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.REFRESH, orphanRemoval = true)

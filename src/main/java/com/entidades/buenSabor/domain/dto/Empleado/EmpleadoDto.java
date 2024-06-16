@@ -22,6 +22,8 @@ import java.util.Set;
 @Setter
 @Getter
 public class EmpleadoDto extends BaseDto {
+    private String nombre;
+    private String apellido;
     private Rol tipoEmpleado;
     private Set<PedidoShortDto> pedidos;
     private SucursalShortDto sucursal;

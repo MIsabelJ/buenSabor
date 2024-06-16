@@ -15,5 +15,7 @@ import java.util.Set;
 @Setter
 @Getter
 public class EmpleadoShortDto extends BaseDto {
+    private String nombre;
+    private String apellido;
     private Rol tipoEmpleado;
 }

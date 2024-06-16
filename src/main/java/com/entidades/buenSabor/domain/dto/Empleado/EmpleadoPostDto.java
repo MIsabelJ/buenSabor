@@ -17,6 +17,8 @@ import java.util.Set;
 @Setter
 @Getter
 public class EmpleadoPostDto {
+    private String nombre;
+    private String apellido;
     private Rol tipoEmpleado;
     private Set<Pedido> pedidos;
     private Long idSucursal;
