@@ -2,6 +2,7 @@ package com.entidades.buenSabor.domain.dto.DetallePedido;
 
 import com.entidades.buenSabor.domain.dto.Articulo.ArticuloDto;
 import com.entidades.buenSabor.domain.dto.BaseDto;
+import com.entidades.buenSabor.domain.dto.Promocion.PromocionDto;
 import com.entidades.buenSabor.domain.entities.Articulo;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -17,5 +18,6 @@ public class DetallePedidoDto extends BaseDto {
     private Integer cantidad;
     private Double subTotal;
 
-    private ArticuloDto articulo;
+    private ArticuloDto articulo = new ArticuloDto();
+    private PromocionDto promocion = new PromocionDto();
 }

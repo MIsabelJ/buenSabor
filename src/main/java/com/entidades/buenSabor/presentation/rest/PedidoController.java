@@ -232,5 +232,10 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto, Pedid
         }
     }
 
+    @PutMapping("/{id}/{reponer}")
+    public ResponseEntity<PedidoDto> upDatePedido(@PathVariable Long id, @PathVariable boolean reponer) {
+        return ResponseEntity.ok(facade.cancelPedido(id, reponer));
+    }
+
 
 }

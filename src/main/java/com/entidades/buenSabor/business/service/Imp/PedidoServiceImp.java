@@ -55,4 +55,20 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
 
         return super.create(pedido);
     }
+
+    public Pedido cancelPedido(Long id, boolean reponer){
+        Pedido pedidoOld = super.getById(id);
+
+        if (reponer == true){
+            Set<DetallePedido> detallesAct = new HashSet<>();
+            for (DetallePedido detalle : pedidoOld.getDetallePedidos()){
+                detallesAct.add(detallePedidoService.reponerStock(detalle));
+            }
+            pedidoOld.setDetallePedidos(detallesAct);
+        }
+
+        pedidoOld.setEstado(Estado.CANCELADO);
+        return super.update(pedidoOld, id);
+
+    }
 }

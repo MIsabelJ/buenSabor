@@ -11,6 +11,7 @@ import java.util.List;
 public interface ArticuloService extends BaseService<Articulo, Long> {
     @Named("getArticuloById")
     public Articulo getArticuloById(Long id);
-
+    @Named("findOrNull")
+    public Articulo findOrNull(Long id);
     public List<Articulo> getAllArticulosVenta();
 }
