@@ -5,6 +5,7 @@ import com.entidades.buenSabor.domain.dto.Pedido.PedidoDto;
 import com.entidades.buenSabor.domain.dto.Pedido.PedidoShortDto;
 import com.entidades.buenSabor.domain.dto.Sucursal.SucursalDto;
 import com.entidades.buenSabor.domain.dto.Sucursal.SucursalShortDto;
+import com.entidades.buenSabor.domain.dto.UsuarioEmpleado.UsuarioEmpleadoDto;
 import com.entidades.buenSabor.domain.entities.ImagenArticulo;
 import com.entidades.buenSabor.domain.entities.Pedido;
 import com.entidades.buenSabor.domain.entities.UsuarioEmpleado;
@@ -27,5 +28,5 @@ public class EmpleadoDto extends BaseDto {
     private Rol tipoEmpleado;
     private Set<PedidoShortDto> pedidos;
     private SucursalShortDto sucursal;
-    private UsuarioEmpleado usuarioEmpleado;
+    private UsuarioEmpleadoDto usuarioEmpleado;
 }

@@ -36,6 +36,6 @@ public class Empleado extends Base{
     @JsonIgnoreProperties("empleados")
     private Sucursal sucursal;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private UsuarioEmpleado usuarioEmpleado;
 }
