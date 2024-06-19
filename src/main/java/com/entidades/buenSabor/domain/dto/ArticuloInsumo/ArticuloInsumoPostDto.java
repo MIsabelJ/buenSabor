@@ -29,4 +29,5 @@ public class ArticuloInsumoPostDto {
     private Boolean esParaElaborar;
     protected Long idUnidadMedida;
     private Long idCategoria;
+    private Long idSucursal;
 }

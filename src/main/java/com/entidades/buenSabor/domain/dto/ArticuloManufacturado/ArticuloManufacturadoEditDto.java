@@ -18,4 +18,5 @@ public class ArticuloManufacturadoEditDto {
     protected Long idUnidadMedida;
     private Long idCategoria;
     private Set<Long> idArticuloManufacturadoDetalle;
+    private Long idSucursal;
 }

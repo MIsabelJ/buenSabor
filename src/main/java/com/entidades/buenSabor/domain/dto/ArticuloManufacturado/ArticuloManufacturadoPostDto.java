@@ -31,4 +31,5 @@ public class ArticuloManufacturadoPostDto {
     protected List<ImagenArticulo> imagenes;
     protected Long idUnidadMedida;
     private Long idCategoria;
+    private Long idSucursal;
 }

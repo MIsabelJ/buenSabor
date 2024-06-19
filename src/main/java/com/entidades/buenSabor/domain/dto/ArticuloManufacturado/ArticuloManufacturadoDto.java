@@ -5,6 +5,7 @@ import com.entidades.buenSabor.domain.dto.ArticuloManufacturdadoDetalle.Articulo
 import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.Categoria.CategoriaDto;
 import com.entidades.buenSabor.domain.dto.ImagenArticulo.ImagenArticuloDto;
+import com.entidades.buenSabor.domain.dto.Sucursal.SucursalShortDto;
 import com.entidades.buenSabor.domain.dto.UnidadMedida.UnidadMedidaDto;
 import com.entidades.buenSabor.domain.entities.ArticuloManufacturadoDetalle;
 import com.entidades.buenSabor.domain.entities.ImagenArticulo;
@@ -26,4 +27,5 @@ public class ArticuloManufacturadoDto extends ArticuloDto {
     private String preparacion;
     private Set<ArticuloManufacturadoDetalleDto> articuloManufacturadoDetalles;
     private CategoriaDto categoria;
+    private SucursalShortDto sucursal;
 }
