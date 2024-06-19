@@ -62,4 +62,13 @@ public class PromocionServiceImp extends BaseServiceImp<Promocion, Long> impleme
         }
         return promocionRepository.save(promocionToUpdate);
     }
+
+    @Override
+    public Promocion findOrNull(Long id){
+        if (id == 0){
+            return null;
+        }else {
+            return super.getById(id);
+        }
+    }
 }

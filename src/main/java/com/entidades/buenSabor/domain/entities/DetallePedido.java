@@ -18,6 +18,8 @@ public class DetallePedido extends Base{
     private Double subTotal;
 
     @ManyToOne
-    private Articulo articulo;
+    private Articulo articulo = new Articulo();
 
+    @ManyToOne
+    private Promocion promocion = new Promocion();
 }

@@ -66,4 +66,13 @@ public class ArticuloServiceImp extends BaseServiceImp<Articulo, Long> implement
         return articulos;
     }
 
+    @Override
+    public Articulo findOrNull(Long id){
+        if (id == 0){
+            return null;
+        }else{
+            return getArticuloById(id);
+        }
+    }
+
 }

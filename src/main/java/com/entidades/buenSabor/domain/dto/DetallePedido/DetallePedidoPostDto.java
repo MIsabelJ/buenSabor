@@ -15,4 +15,5 @@ public class DetallePedidoPostDto {
     private Double subTotal;
 
     private Long idArticulo;
+    private Long idPromocion;
 }
