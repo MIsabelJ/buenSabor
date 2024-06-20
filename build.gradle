@@ -70,11 +70,15 @@ dependencies {
     //MERCADO PAGO
     implementation 'com.mercadopago:sdk-java:2.1.24'
 
-    //APACHE POI
+    //APACHE POI (GENERACION EXCEL)
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
 
-    //IText
+    //IText (GENERACION PDF)
     implementation group: 'com.lowagie', name: 'itext', version: '2.1.7'
+
+    //ENVIO DE EMAIL
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.eclipse.angus:angus-mail:2.0.1'
 }
 
 tasks.named('test') {
