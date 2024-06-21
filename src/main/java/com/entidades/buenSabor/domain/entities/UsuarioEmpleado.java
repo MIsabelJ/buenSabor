@@ -16,5 +16,4 @@ import org.hibernate.envers.Audited;
 public class UsuarioEmpleado extends Base{
     private String email;
     private String userName;
-    private String password;
 }

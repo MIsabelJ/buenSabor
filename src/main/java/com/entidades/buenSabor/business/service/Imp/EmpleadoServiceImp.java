@@ -24,24 +24,6 @@ public class EmpleadoServiceImp extends BaseServiceImp<Empleado, Long> implement
 
     @Override
     public Empleado create(Empleado empleado){
-        String passwordHash = getMd5Password(empleado.getUsuarioEmpleado().getPassword());
-        empleado.getUsuarioEmpleado().setPassword(passwordHash);
         return empleadoRepository.save(empleado);
-    }
-
-    public String getMd5Password(String password) {
-        try{
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = md.digest(password.getBytes());
-            BigInteger number = new BigInteger(1, messageDigest);
-            String hashtext = number.toString(16);
-
-            while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
-            }
-            return hashtext;
-        }catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

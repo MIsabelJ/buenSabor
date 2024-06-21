@@ -12,5 +12,4 @@ import lombok.Setter;
 public class UsuarioEmpleadoPostDto {
     private String email;
     private String userName;
-    private String password;
 }

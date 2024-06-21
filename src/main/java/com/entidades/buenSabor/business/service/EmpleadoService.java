@@ -5,5 +5,4 @@ import com.entidades.buenSabor.domain.entities.Empleado;
 
 public interface EmpleadoService extends BaseService<Empleado, Long> {
     public Empleado findByEmail(String email);
-    public String getMd5Password(String password);
 }
