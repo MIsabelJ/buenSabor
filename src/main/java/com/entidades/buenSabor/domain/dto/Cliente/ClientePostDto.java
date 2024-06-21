@@ -23,11 +23,9 @@ public class ClientePostDto {
     private String nombre;
     private String apellido;
     private String telefono;
-    private String email;
 
     private UsuarioClientePostDto usuarioCliente;
 
-    private ImagenCliente imagenCliente;
     private Set<DomicilioPostDto> domicilios;
     private Set<PedidoPostDto> pedidos;
 }

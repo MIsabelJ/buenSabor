@@ -6,4 +6,6 @@ import com.entidades.buenSabor.domain.dto.Cliente.ClientePostDto;
 import com.entidades.buenSabor.domain.entities.Cliente;
 
 public interface ClienteFacade extends BaseFacade<ClienteDto, ClientePostDto, ClientePostDto, Long> {
+
+    public ClienteDto getClienteById(Long id);
 }

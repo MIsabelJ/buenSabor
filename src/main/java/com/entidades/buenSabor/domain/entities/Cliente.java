@@ -25,14 +25,9 @@ public class Cliente extends Base{
     private String nombre;
     private String apellido;
     private String telefono;
-    private String email;
 
     @OneToOne(cascade = CascadeType.ALL)
     private UsuarioCliente usuarioCliente;
-
-    @OneToOne
-    @NotAudited
-    private ImagenCliente imagenCliente;
 
     @ManyToMany
     //SE AGREGA EL JOIN TABLE PARA QUE JPA CREE LA TABLA INTERMEDIA EN UNA RELACION MANY TO MANY
