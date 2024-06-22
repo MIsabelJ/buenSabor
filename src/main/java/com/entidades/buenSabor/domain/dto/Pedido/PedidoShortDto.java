@@ -1,5 +1,6 @@
 package com.entidades.buenSabor.domain.dto.Pedido;
 
+import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.Cliente.ClienteShortDto;
 import com.entidades.buenSabor.domain.dto.DetallePedido.DetallePedidoDto;
 import com.entidades.buenSabor.domain.dto.Domicilio.DomicilioDto;
@@ -23,7 +24,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Setter
 @Getter
-public class PedidoShortDto {
+public class PedidoShortDto extends BaseDto {
     @Schema(type = "string", format = "time", pattern = "HH:mm:ss", description = "Horario de apertura en formato HH:mm:ss")
     private LocalTime horaEstimadaFinalizacion;
     private Double total;
