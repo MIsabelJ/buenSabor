@@ -46,17 +46,33 @@ public class SecurityConfiguration {
                 .cors(withDefaults()) //por defecto spring va a buscar un bean con el nombre "corsConfigurationSource".
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                //TODOS LOS ENDPOINTS CON SU NIVEL DE ACCESO
-                                //.requestMatchers("/**").hasAuthority("ADMIN")
-                                //.requestMatchers("/{idEmpresa}/sucursales").hasAuthority("ADMIN")
-                                /*.requestMatchers(HttpMethod.POST, "/empresa").hasAnyAuthority("ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/sucursal/**").hasAnyAuthority("ADMIN", "ADMIN_NEGOCIO")
-                                .requestMatchers(HttpMethod.POST, "/sucursal/**").hasAnyAuthority("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/sucursal").hasAnyAuthority("ADMIN", "ADMIN_NEGOCIO")
-                                .requestMatchers(HttpMethod.DELETE, "/sucursal").hasAnyAuthority("ADMIN")
-                                */
-                                .requestMatchers("/**").permitAll()
-                                .anyRequest().permitAll()
+                                // TODOS LOS ENDPOINTS CON SU NIVEL DE ACCESO
+                                // ADMIN, ADMIN_NEGOCIO, CAJERO, COCINERO, REPOSITOR, DELIVERY
+                                // ARTICULO
+                                .requestMatchers("/articulo/**").hasAnyAuthority("COCINERO", "ADMIN_NEGOCIO", "REPOSITOR")
+                                // ARTICULO MANUFACTURADO
+                                .requestMatchers("/articulo-manufacturado/**").hasAnyAuthority("COCINERO", "ADMIN_NEGOCIO")
+                                // ARTICULO INSUMO
+                                .requestMatchers("/articulo-insumo/**").hasAnyAuthority("COCINERO", "ADMIN_NEGOCIO", "REPOSITOR")
+                                // CATEGORIA
+                                .requestMatchers("/categoria/**").hasAnyAuthority("COCINERO", "ADMIN_NEGOCIO")
+                                // CLIENTE
+                                .requestMatchers("/cliente/**").permitAll()
+                                // EMPLEADO
+                                .requestMatchers(HttpMethod.GET, "/empleado/**").authenticated()
+                                // EMPRESA
+                                .requestMatchers("/empresa/{id}/**").hasAnyAuthority("ADMIN_NEGOCIO")
+                                // IMAGEN-ARTICULO
+                                .requestMatchers("/imagen-articulo/**").hasAnyAuthority("REPOSITOR", "COCINERO", "ADMIN_NEGOCIO")
+                                // IMAGEN-PROMOCION
+                                .requestMatchers("/imagen-promocion/**").hasAnyAuthority("ADMIN_NEGOCIO")
+                                // PEDIDO
+                                .requestMatchers(HttpMethod.PUT, "/pedido/**").hasAnyAuthority("CAJERO", "COCINERO", "ADMIN_NEGOCIO", "DELIVERY")
+                                .requestMatchers(HttpMethod.GET, "/pedido/**").hasAnyAuthority("CAJERO", "COCINERO", "ADMIN_NEGOCIO", "DELIVERY")
+                                // SWAGGER
+                                .requestMatchers("/swagger-ui/**").permitAll()
+                                // Catch-all
+                                .anyRequest().hasAnyAuthority("ADMIN")
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->
                         oauth2ResourceServer
