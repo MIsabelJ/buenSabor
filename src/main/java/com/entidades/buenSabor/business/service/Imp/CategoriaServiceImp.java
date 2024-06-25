@@ -7,6 +7,9 @@ import com.entidades.buenSabor.domain.entities.*;
 import com.entidades.buenSabor.repositories.ArticuloRepository;
 import com.entidades.buenSabor.repositories.BaseRepository;
 import com.entidades.buenSabor.repositories.CategoriaRepository;
+import com.entidades.buenSabor.repositories.SucursalRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +24,12 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria, Long> impleme
     @Autowired
     SucursalService sucursalService;
     @Autowired
+    SucursalRepository sucursalRepository;
+    @Autowired
     CategoriaRepository categoriaRepository;
 
     @Override
+    @Transactional
     public Categoria create(Categoria request) {
         Set<Sucursal> sucursales = request.getSucursales();
         var entitySaved = baseRepository.save(request);
@@ -36,6 +42,39 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria, Long> impleme
                 .forEach(sucursalService::create); // Suponiendo que sucursalService tiene un método save para guardar sucursales
         return entitySaved;
     }
+
+    @Override
+    @Transactional
+    public Categoria update(Categoria request, Long id) {
+        Categoria categoriaOld = categoriaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Categoria no encontrada"));
+        Set<Sucursal> sucursalesOld = new HashSet<>(categoriaOld.getSucursales());
+
+        // Guardar la entidad actualizada
+        Categoria entitySaved = categoriaRepository.save(request);
+
+        // Obtener las sucursales de la categoría actualizada
+        Set<Sucursal> sucursalesNew = request.getSucursales();
+
+        // Eliminar la categoría antigua de las sucursales que ya no la tienen
+        for (Sucursal sucursal : sucursalesOld) {
+            if (!sucursalesNew.contains(sucursal)) {
+                sucursal.getCategorias().remove(categoriaOld);
+                sucursalService.create(sucursal); // Suponiendo que sucursalService tiene un método save para guardar sucursales
+            }
+        }
+
+        // Añadir la categoría actualizada a las nuevas sucursales
+        for (Sucursal sucursal : sucursalesNew) {
+            if (!sucursal.getCategorias().contains(entitySaved)) {
+                sucursal.getCategorias().add(entitySaved);
+                sucursalService.create(sucursal); // Suponiendo que sucursalService tiene un método save para guardar sucursales
+            }
+        }
+
+        return entitySaved;
+    }
+
+
 
     @Override
     public Categoria addSubCategoria(Long idCategoria, Categoria subCategoriaToCreate) {
