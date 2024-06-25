@@ -65,6 +65,15 @@ public class ArticuloFacadeImp extends BaseFacadeImp<Articulo, ArticuloDto, Arti
         List<Articulo> articulos = articuloService.getAllArticulosVenta();
 
         return articulos.stream()
+                .filter(articulo -> {
+                    if (articulo instanceof ArticuloManufacturado) {
+                        ArticuloManufacturado am = (ArticuloManufacturado) articulo;
+                        // Verifica si todos los insumos tienen stock suficiente
+                        return am.getArticuloManufacturadoDetalles().stream()
+                                .allMatch(amd -> amd.getArticuloInsumo().getStockActual() > amd.getCantidad());
+                    }
+                    return true; // Incluye los otros tipos de artículos sin filtrar
+                })
                 .map(articulo -> {
                     if (articulo instanceof ArticuloInsumo) {
                         return articuloInsumoMapper.toDTO((ArticuloInsumo) articulo);

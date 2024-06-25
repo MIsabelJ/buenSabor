@@ -48,7 +48,7 @@ public class SecurityConfiguration {
                         authorizeRequests
                                 // TODOS LOS ENDPOINTS CON SU NIVEL DE ACCESO
                                 // ADMIN, ADMIN_NEGOCIO, CAJERO, COCINERO, REPOSITOR, DELIVERY
-                                // ARTICULO
+                                /*// ARTICULO
                                 .requestMatchers("/articulo/**").hasAnyAuthority("COCINERO", "ADMIN_NEGOCIO", "REPOSITOR")
                                 // ARTICULO MANUFACTURADO
                                 .requestMatchers("/articulo-manufacturado/**").hasAnyAuthority("COCINERO", "ADMIN_NEGOCIO")
@@ -72,7 +72,9 @@ public class SecurityConfiguration {
                                 // SWAGGER
                                 .requestMatchers("/swagger-ui/**").permitAll()
                                 // Catch-all
-                                .anyRequest().hasAnyAuthority("ADMIN")
+                                .anyRequest().hasAnyAuthority("ADMIN")*/
+                                .requestMatchers("/**").permitAll()
+                                .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->
                         oauth2ResourceServer

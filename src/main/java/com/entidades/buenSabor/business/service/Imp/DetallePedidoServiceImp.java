@@ -13,62 +13,51 @@ import java.util.Set;
 public class DetallePedidoServiceImp extends BaseServiceImp<DetallePedido, Long> implements DetallePedidoService {
     @Override
     public DetallePedido descuentoDeStock(DetallePedido detalle) {
-            // Si el artículo es un ArticuloInsumo
         if (detalle.getArticulo() != null) {
             Articulo articulo = detalle.getArticulo();
             Articulo articuloActualizado = descuentoStockArticulo(articulo, detalle.getCantidad());
+            if (articuloActualizado == null) {
+                return null; // Retornar null si no hay suficiente stock
+            }
             detalle.setArticulo(articuloActualizado);
         }
-        if (detalle.getPromocion() != null){
+        if (detalle.getPromocion() != null) {
             Set<PromocionDetalle> promocionDetalles = detalle.getPromocion().getPromocionDetalles();
             Set<PromocionDetalle> promocionDetallesActualizados = new HashSet<>();
             for (PromocionDetalle promocionDetalle : promocionDetalles) {
                 Articulo articulo = promocionDetalle.getArticulo();
                 articulo = descuentoStockArticulo(articulo, promocionDetalle.getCantidad());
+                if (articulo == null) {
+                    return null; // Retornar null si no hay suficiente stock
+                }
                 promocionDetalle.setArticulo(articulo);
                 promocionDetallesActualizados.add(promocionDetalle);
             }
             detalle.getPromocion().setPromocionDetalles(promocionDetallesActualizados);
         }
-
         return detalle;
     }
 
-    public Articulo descuentoStockArticulo (Articulo articulo, int cantidad){
+    public Articulo descuentoStockArticulo(Articulo articulo, int cantidad) {
         if (articulo instanceof ArticuloInsumo) {
             ArticuloInsumo articuloInsumo = (ArticuloInsumo) articulo;
             int nuevoStock = articuloInsumo.getStockActual() - cantidad;
-            if (nuevoStock > articuloInsumo.getStockMinimo()){
+            if (nuevoStock >= 0) {
                 articuloInsumo.setStockActual(nuevoStock);
                 return articuloInsumo;
-            }else if (nuevoStock < articuloInsumo.getStockMinimo() && nuevoStock > 0){
-                articuloInsumo.setStockActual(nuevoStock);
-                articuloInsumo.setEliminado(true);
-                return articuloInsumo;
-            }else if (nuevoStock < 0){
-                return null;
+            } else {
+                return null; // Retornar null si no hay suficiente stock
             }
-
-            // Si el artículo es un ArticuloManufacturado
         } else if (articulo instanceof ArticuloManufacturado) {
             ArticuloManufacturado articuloManufacturado = (ArticuloManufacturado) articulo;
             for (ArticuloManufacturadoDetalle detalleManufacturado : articuloManufacturado.getArticuloManufacturadoDetalles()) {
                 ArticuloInsumo articuloInsumo = detalleManufacturado.getArticuloInsumo();
-                int nuevoStock = articuloInsumo.getStockActual();
-                for (int i = 0; i < cantidad; i++){
-                    nuevoStock = nuevoStock - detalleManufacturado.getCantidad();
-                }
-                if(nuevoStock > articuloInsumo.getStockMinimo()){
+                int nuevoStock = articuloInsumo.getStockActual() - detalleManufacturado.getCantidad() * cantidad;
+                if (nuevoStock >= 0) {
                     articuloInsumo.setStockActual(nuevoStock);
-                    detalleManufacturado.setArticuloInsumo(articuloInsumo);
-                }else if (nuevoStock < articuloInsumo.getStockMinimo() && nuevoStock > 0){
-                    articuloInsumo.setStockActual(nuevoStock);
-                    articuloInsumo.setEliminado(true);
-                    detalleManufacturado.setArticuloInsumo(articuloInsumo);
-                } else if (nuevoStock < 0) {
-                    return null;
+                } else {
+                    return null; // Retornar null si no hay suficiente stock
                 }
-
             }
             return articuloManufacturado;
         }

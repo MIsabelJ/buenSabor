@@ -29,30 +29,30 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
     PedidoRepository pedidoRepository;
     @Override
     @Transactional
-    public Pedido create(Pedido pedido){
+    public Pedido create(Pedido pedido) {
         Set<DetallePedido> detallesToSave = pedido.getDetallePedidos();
         Set<DetallePedido> detallesActualizados = new HashSet<>();
 
         // Aplica descuento de stock a cada detalle del pedido
-        try{
+        try {
             for (DetallePedido detalle : detallesToSave) {
                 DetallePedido actualizado = detallePedidoService.descuentoDeStock(detalle);
                 if (actualizado != null) {
                     detallesActualizados.add(actualizado);
                 } else {
-                    throw new Exception("EL PEDIDO EXCEDE EL STOCK");
+                    pedido.setEstado(Estado.RECHAZADO);
+                    return super.create(pedido); // Guarda el pedido con estado rechazado y retorna
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
+            System.out.println("Error al procesar el pedido: " + e.getMessage());
             pedido.setEstado(Estado.RECHAZADO);
-            return super.create(pedido);
+            return super.create(pedido); // Guarda el pedido con estado rechazado y retorna
         }
 
         pedido.setDetallePedidos(detallesActualizados);
-
         pedido.getEmpleado().getPedidos().add(pedido);
         pedido.getCliente().getPedidos().add(pedido);
-
         return super.create(pedido);
     }
 

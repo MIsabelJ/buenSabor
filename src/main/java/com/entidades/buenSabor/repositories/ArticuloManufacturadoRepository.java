@@ -23,4 +23,10 @@ public interface ArticuloManufacturadoRepository extends BaseRepository<Articulo
 
     @Query("SELECT a FROM ArticuloManufacturado a WHERE a.precioVenta != 0")
     List<ArticuloManufacturado> findAllVenta();
+
+    @Query("SELECT am FROM ArticuloManufacturado am " +
+            "JOIN am.articuloManufacturadoDetalles amd " +
+            "JOIN amd.articuloInsumo ai " +
+            "WHERE ai.stockActual > amd.cantidad")
+    List<ArticuloManufacturado> findManufacturadosEcommerce();
 }
