@@ -2,6 +2,7 @@ package com.entidades.buenSabor.utils.reports;
 
 import com.entidades.buenSabor.business.service.FacturaService;
 import com.entidades.buenSabor.business.service.PedidoService;
+import com.entidades.buenSabor.domain.entities.DetallePedido;
 import com.entidades.buenSabor.domain.entities.Factura;
 import com.entidades.buenSabor.domain.entities.Pedido;
 import com.entidades.buenSabor.domain.enums.FormaPago;
@@ -67,7 +68,8 @@ public class PdfManager {
         document.add(linea);
     }
 
-    public ResponseEntity<byte[]> downloadFactura(Long pedidoId, ByteArrayOutputStream outputStream) {
+    public byte[] downloadFactura(Long pedidoId) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
             Document document = new Document(PageSize.A4, 30, 30, 30, 30);
 
@@ -157,6 +159,32 @@ public class PdfManager {
 
             document.add(table);
 
+            addEmptyLine(document, 1);
+
+            Paragraph detallesTitle = new Paragraph("Artículos pedidos:", textoBold);
+            detallesTitle.setAlignment(Element.ALIGN_CENTER);
+            document.add(detallesTitle);
+
+            addEmptyLine(document, 1);
+
+            PdfPTable detallesTable = new PdfPTable(4);
+            detallesTable.setWidthPercentage(100);
+            detallesTable.setWidths(new float[]{2, 1, 1, 1});
+
+            detallesTable.addCell(new PdfPCell(new Phrase("Producto", textoBold)));
+            detallesTable.addCell(new PdfPCell(new Phrase("Cantidad", textoBold)));
+            detallesTable.addCell(new PdfPCell(new Phrase("Precio Unitario", textoBold)));
+            detallesTable.addCell(new PdfPCell(new Phrase("Subtotal", textoBold)));
+
+            for (DetallePedido detalle : pedido.getDetallePedidos()) {
+                detallesTable.addCell(new PdfPCell(new Phrase(detalle.getArticulo().getDenominacion(), texto)));
+                detallesTable.addCell(new PdfPCell(new Phrase(String.valueOf(detalle.getCantidad()), texto)));
+                detallesTable.addCell(new PdfPCell(new Phrase("$" + detalle.getArticulo().getPrecioVenta().toString(), texto)));
+                detallesTable.addCell(new PdfPCell(new Phrase("$" + detalle.getSubTotal().toString(), texto)));
+            }
+
+            document.add(detallesTable);
+
             document.close();
 
             String filename = "factura_pedido_" + pedidoId + ".pdf";
@@ -166,11 +194,19 @@ public class PdfManager {
             headers.setContentDispositionFormData("attachment", filename);
             headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
 
-            return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
+            return outputStream.toByteArray();
 
-        } catch (Exception e) {
+        } catch (DocumentException e) {
+            // Log the error
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            // You might want to throw a custom exception here
+            throw new RuntimeException("Error generating PDF for pedido " + pedidoId, e);
+        } finally {
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

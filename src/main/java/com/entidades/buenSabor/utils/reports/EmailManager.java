@@ -13,20 +13,19 @@ import jakarta.mail.internet.MimeMessage;
 public class EmailManager {
 
     @Autowired
-    private JavaMailSender emailSender;
+    private JavaMailSender mailSender;
 
-    public void sendEmail(String to, byte[] pdfContent, String orderId) throws MessagingException {
-        MimeMessage message = emailSender.createMimeMessage();
+    public void sendEmailWithAttachment(String to, String subject, String body, byte[] attachment, String filename) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setFrom("aig.development3@gmail.com");
         helper.setTo(to);
-        helper.setSubject("Factura para tu pedido " + orderId);
-        helper.setText("Adjunto encontrarás la factura para tu pedido reciente.");
+        helper.setSubject(subject);
+        helper.setText(body);
 
-        helper.addAttachment("factura.pdf", new ByteArrayResource(pdfContent));
+        helper.addAttachment(filename, new ByteArrayResource(attachment));
 
-        emailSender.send(message);
+        mailSender.send(message);
     }
 
 }

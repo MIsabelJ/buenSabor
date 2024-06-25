@@ -1,16 +1,16 @@
 package com.entidades.buenSabor.presentation.rest;
 
 import com.entidades.buenSabor.business.facade.Imp.PedidoFacadeImp;
+import com.entidades.buenSabor.business.service.PedidoService;
 import com.entidades.buenSabor.domain.dto.Pedido.PedidoDto;
 import com.entidades.buenSabor.domain.dto.Pedido.PedidoPostDto;
-import com.entidades.buenSabor.domain.entities.ArticuloManufacturado;
-import com.entidades.buenSabor.domain.entities.DetallePedido;
 import com.entidades.buenSabor.domain.entities.Pedido;
 import com.entidades.buenSabor.domain.entities.PreferenceMp;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import com.entidades.buenSabor.repositories.PedidoRepository;
 import com.entidades.buenSabor.utils.reports.ExcelManager;
 import com.entidades.buenSabor.utils.reports.PdfManager;
+import com.entidades.buenSabor.utils.reports.EmailManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
@@ -21,13 +21,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -41,7 +38,11 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto, Pedid
     @Autowired
     private PdfManager pdfManager;
     @Autowired
+    private EmailManager emailService;
+    @Autowired
     private PedidoRepository pedidoRepository;
+    @Autowired
+    private PedidoService pedidoService;
 
     private final MercadoPagoController mercadoPagoController;
 
@@ -213,7 +214,7 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto, Pedid
     @GetMapping("/downloadFacturaPedido/{id}")
     public ResponseEntity<byte[]> downloadFacturaPedido(@PathVariable Long id) {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            pdfManager.downloadFactura(id, outputStream);
+            pdfManager.downloadFactura(id);
 
             String filename = "factura_pedido_" + id + ".pdf";
 
@@ -229,6 +230,27 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto, Pedid
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //EMAIL
+    @GetMapping("/sendFacturaPedido/{id}")
+    public ResponseEntity<String> sendFacturaPedido(@PathVariable Long id) {
+        try {
+            Pedido pedido = pedidoService.getById(id);
+            byte[] pdfBytes = pdfManager.downloadFactura(id);
+
+            String to = pedido.getCliente().getUsuarioCliente().getEmail();
+            String subject = "Factura de su pedido #" + id;
+            String body = "Estimado cliente,\n\nAdjunto encontrará la factura de su pedido.";
+            String filename = "factura_pedido_" + id + ".pdf";
+
+            emailService.sendEmailWithAttachment(to, subject, body, pdfBytes, filename);
+
+            return ResponseEntity.ok("Factura enviada por correo electrónico");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al enviar la factura");
         }
     }
 
