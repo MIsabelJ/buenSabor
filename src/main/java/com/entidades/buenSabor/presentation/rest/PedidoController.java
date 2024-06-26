@@ -10,13 +10,10 @@ import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import com.entidades.buenSabor.repositories.PedidoRepository;
 import com.entidades.buenSabor.utils.reports.ExcelManager;
 import com.entidades.buenSabor.utils.reports.PdfManager;
-import com.entidades.buenSabor.utils.reports.EmailManager;
+import com.entidades.buenSabor.utils.reports.email.EmailManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
@@ -213,19 +210,19 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto, Pedid
     // PDF
     @GetMapping("/downloadFacturaPedido/{id}")
     public ResponseEntity<byte[]> downloadFacturaPedido(@PathVariable Long id) {
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            pdfManager.downloadFactura(id);
+        try {
+            byte[] pdfBytes = pdfManager.downloadFactura(id);
 
             String filename = "factura_pedido_" + id + ".pdf";
 
             // Establecer las cabeceras de la respuesta
             HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.parseMediaType("application/pdf"));
-            headers.setContentDispositionFormData("attachment", filename);
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDisposition(ContentDisposition.attachment().filename(filename).build());
             headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
 
             // Devolver el archivo PDF como parte de la respuesta HTTP
-            return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
+            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -234,7 +231,7 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto, Pedid
     }
 
     //EMAIL
-    @GetMapping("/sendFacturaPedido/{id}")
+    @PostMapping("/sendFacturaPedido/{id}")
     public ResponseEntity<String> sendFacturaPedido(@PathVariable Long id) {
         try {
             Pedido pedido = pedidoService.getById(id);

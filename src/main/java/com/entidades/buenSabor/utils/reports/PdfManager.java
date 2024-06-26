@@ -1,18 +1,13 @@
 package com.entidades.buenSabor.utils.reports;
 
-import com.entidades.buenSabor.business.service.FacturaService;
 import com.entidades.buenSabor.business.service.PedidoService;
-import com.entidades.buenSabor.domain.entities.DetallePedido;
-import com.entidades.buenSabor.domain.entities.Factura;
-import com.entidades.buenSabor.domain.entities.Pedido;
-import com.entidades.buenSabor.domain.enums.FormaPago;
+import com.entidades.buenSabor.domain.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
-import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
@@ -20,10 +15,6 @@ import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
@@ -162,44 +153,53 @@ public class PdfManager {
             addEmptyLine(document, 1);
 
             Paragraph detallesTitle = new Paragraph("Artículos pedidos:", textoBold);
-            detallesTitle.setAlignment(Element.ALIGN_CENTER);
             document.add(detallesTitle);
 
             addEmptyLine(document, 1);
 
-            PdfPTable detallesTable = new PdfPTable(4);
+            PdfPTable detallesTable = new PdfPTable(5);
             detallesTable.setWidthPercentage(100);
-            detallesTable.setWidths(new float[]{2, 1, 1, 1});
+            detallesTable.setWidths(new float[]{2, 2, 1, 1, 1});
 
             detallesTable.addCell(new PdfPCell(new Phrase("Producto", textoBold)));
+            detallesTable.addCell(new PdfPCell(new Phrase("Descripción", textoBold)));
             detallesTable.addCell(new PdfPCell(new Phrase("Cantidad", textoBold)));
             detallesTable.addCell(new PdfPCell(new Phrase("Precio Unitario", textoBold)));
             detallesTable.addCell(new PdfPCell(new Phrase("Subtotal", textoBold)));
 
             for (DetallePedido detalle : pedido.getDetallePedidos()) {
-                detallesTable.addCell(new PdfPCell(new Phrase(detalle.getArticulo().getDenominacion(), texto)));
-                detallesTable.addCell(new PdfPCell(new Phrase(String.valueOf(detalle.getCantidad()), texto)));
-                detallesTable.addCell(new PdfPCell(new Phrase("$" + detalle.getArticulo().getPrecioVenta().toString(), texto)));
-                detallesTable.addCell(new PdfPCell(new Phrase("$" + detalle.getSubTotal().toString(), texto)));
+                if (detalle.getArticulo() != null) {
+
+                    detallesTable.addCell(new PdfPCell(new Phrase(detalle.getArticulo().getDenominacion(), texto)));
+                    if (detalle.getArticulo() instanceof ArticuloInsumo) {
+                        detallesTable.addCell(new PdfPCell(new Phrase("", texto)));
+                    } else if (detalle.getArticulo() instanceof ArticuloManufacturado) {
+                        detallesTable.addCell(new PdfPCell(new Phrase(((ArticuloManufacturado) detalle.getArticulo()).getDescripcion(), texto)));
+                    }
+                    detallesTable.addCell(new PdfPCell(new Phrase(String.valueOf(detalle.getCantidad()), texto)));
+                    detallesTable.addCell(new PdfPCell(new Phrase("$" + detalle.getArticulo().getPrecioVenta().toString(), texto)));
+                    detallesTable.addCell(new PdfPCell(new Phrase("$" + detalle.getSubTotal().toString(), texto)));
+
+                } else if (detalle.getPromocion() != null) {
+
+                    detallesTable.addCell(new PdfPCell(new Phrase("Promoción " + detalle.getPromocion().getDenominacion(), texto)));
+                    detallesTable.addCell(new PdfPCell(new Phrase(detalle.getPromocion().getDescripcionDescuento(), texto)));
+                    detallesTable.addCell(new PdfPCell(new Phrase(String.valueOf(detalle.getCantidad()), texto)));
+                    detallesTable.addCell(new PdfPCell(new Phrase("$" + detalle.getPromocion().getPrecioPromocional().toString(), texto)));
+                    detallesTable.addCell(new PdfPCell(new Phrase("$" + detalle.getSubTotal().toString(), texto)));
+
+                }
+
             }
 
             document.add(detallesTable);
 
             document.close();
 
-            String filename = "factura_pedido_" + pedidoId + ".pdf";
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.parseMediaType("application/pdf"));
-            headers.setContentDispositionFormData("attachment", filename);
-            headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-
             return outputStream.toByteArray();
 
         } catch (DocumentException e) {
-            // Log the error
             e.printStackTrace();
-            // You might want to throw a custom exception here
             throw new RuntimeException("Error generating PDF for pedido " + pedidoId, e);
         } finally {
             try {
