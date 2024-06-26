@@ -15,6 +15,8 @@ import com.entidades.buenSabor.domain.dto.Promocion.PromocionDto;
 import com.entidades.buenSabor.domain.dto.Promocion.PromocionPostDto;
 import com.entidades.buenSabor.domain.dto.PromocionDetalle.PromocionDetalleDto;
 import com.entidades.buenSabor.domain.entities.*;
+import com.entidades.buenSabor.repositories.PromocionRepository;
+import jakarta.transaction.Transactional;
 import org.apache.velocity.runtime.directive.Foreach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +25,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class PromocionFacadeImp extends BaseFacadeImp<Promocion, PromocionDto, PromocionPostDto, PromocionPostDto, Long> implements PromocionFacade {
     @Autowired
     private PromocionMapperImpl promocionMapperImpl;
+    @Autowired
+    private PromocionRepository promocionRepository;
 
     public PromocionFacadeImp(BaseService<Promocion, Long> baseService, BaseMapper<Promocion, PromocionDto, PromocionPostDto, PromocionPostDto> baseMapper) {
         super(baseService, baseMapper);
@@ -83,5 +88,28 @@ public class PromocionFacadeImp extends BaseFacadeImp<Promocion, PromocionDto, P
         promocionDto.setPromocionDetalles(promocionDetalleDtos);
         return promocionDto;
 
+    }
+
+    @Override
+    @Transactional
+    public List<PromocionDto> findAllPromocionesVenta(){
+        List<Promocion> promociones = promocionRepository.findAll();
+
+        return promociones.stream()
+                .filter(promocion -> promocion.getPromocionDetalles().stream()
+                        .allMatch(detalle -> {
+                            Articulo articulo = detalle.getArticulo();
+                            if (articulo instanceof ArticuloInsumo) {
+                                ArticuloInsumo insumo = (ArticuloInsumo) articulo;
+                                return insumo.getStockActual() >= detalle.getCantidad();
+                            } else if (articulo instanceof ArticuloManufacturado) {
+                                ArticuloManufacturado manufacturado = (ArticuloManufacturado) articulo;
+                                return manufacturado.getArticuloManufacturadoDetalles().stream()
+                                        .allMatch(manufacturadoDetalle -> manufacturadoDetalle.getArticuloInsumo().getStockActual() >= manufacturadoDetalle.getCantidad() * detalle.getCantidad());
+                            }
+                            return false;
+                        }))
+                .map(promocion -> promocionMapperImpl.toDTO(promocion))
+                .collect(Collectors.toList());
     }
 }

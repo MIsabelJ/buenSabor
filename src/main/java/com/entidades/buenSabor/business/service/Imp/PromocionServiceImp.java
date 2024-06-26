@@ -9,10 +9,12 @@ import com.entidades.buenSabor.domain.entities.PromocionDetalle;
 import com.entidades.buenSabor.domain.entities.Sucursal;
 import com.entidades.buenSabor.repositories.ImagenPromocionRepository;
 import com.entidades.buenSabor.repositories.PromocionRepository;
+import com.entidades.buenSabor.repositories.SucursalRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +26,8 @@ public class PromocionServiceImp extends BaseServiceImp<Promocion, Long> impleme
     PromocionDetalleService promocionDetalleService;
     @Autowired
     ImagenPromocionRepository imagenPromocionRepository;
+    @Autowired
+    SucursalRepository sucursalRepository;
     @Override
     @Transactional
     public Promocion create(Promocion request){
@@ -41,25 +45,44 @@ public class PromocionServiceImp extends BaseServiceImp<Promocion, Long> impleme
 
     @Override
     @Transactional
-    public Promocion update(Promocion request, Long id){
-        Promocion promocionToUpdate = baseRepository.getById(id);
-        Set<PromocionDetalle> detallesToSave = request.getPromocionDetalles();
+    public Promocion update(Promocion request, Long id) {
+        Promocion promocionToUpdate = promocionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Promoción no encontrada"));
 
-        if(detallesToSave != null){
-            for(PromocionDetalle detalle : detallesToSave){
-                if(detalle.getId() == null){
+        Set<PromocionDetalle> detallesToSave = request.getPromocionDetalles();
+        Set<Sucursal> sucursalesToSave = request.getSucursales();
+
+        // Actualiza detalles de promoción
+        if (detallesToSave != null) {
+            for (PromocionDetalle detalle : detallesToSave) {
+                if (detalle.getId() == null) {
                     promocionDetalleService.create(detalle);
                 }
             }
             promocionToUpdate.setPromocionDetalles(detallesToSave);
         }
+
+        // Actualiza imágenes de promoción
         List<ImagenPromocion> imagesToSave = request.getImagenes();
-        if(imagesToSave != null){
-            for(ImagenPromocion imagen : imagesToSave){
+        if (imagesToSave != null) {
+            for (ImagenPromocion imagen : imagesToSave) {
                 imagenPromocionRepository.save(imagen);
             }
             promocionToUpdate.setImagenes(imagesToSave);
         }
+
+        // Actualiza sucursales
+        if (sucursalesToSave != null) {
+            Set<Sucursal> managedSucursales = new HashSet<>();
+            for (Sucursal sucursal : sucursalesToSave) {
+                Sucursal managedSucursal = sucursalRepository.findById(sucursal.getId())
+                        .orElseThrow(() -> new RuntimeException("Sucursal no encontrada"));
+                managedSucursal.getPromociones().add(promocionToUpdate);  // Añadir la promoción a la sucursal
+                managedSucursales.add(managedSucursal);
+            }
+            promocionToUpdate.setSucursales(managedSucursales);
+        }
+
         return promocionRepository.save(promocionToUpdate);
     }
 
