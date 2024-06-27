@@ -21,20 +21,22 @@ public class DetallePedidoServiceImp extends BaseServiceImp<DetallePedido, Long>
             }
             detalle.setArticulo(articuloActualizado);
         }
+
         if (detalle.getPromocion() != null) {
             Set<PromocionDetalle> promocionDetalles = detalle.getPromocion().getPromocionDetalles();
             Set<PromocionDetalle> promocionDetallesActualizados = new HashSet<>();
             for (PromocionDetalle promocionDetalle : promocionDetalles) {
                 Articulo articulo = promocionDetalle.getArticulo();
-                articulo = descuentoStockArticulo(articulo, promocionDetalle.getCantidad());
-                if (articulo == null) {
+                Articulo articuloActualizado = descuentoStockArticulo(articulo, promocionDetalle.getCantidad() * detalle.getCantidad());
+                if (articuloActualizado == null) {
                     return null; // Retornar null si no hay suficiente stock
                 }
-                promocionDetalle.setArticulo(articulo);
+                promocionDetalle.setArticulo(articuloActualizado);
                 promocionDetallesActualizados.add(promocionDetalle);
             }
             detalle.getPromocion().setPromocionDetalles(promocionDetallesActualizados);
         }
+
         return detalle;
     }
 
